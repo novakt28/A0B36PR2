@@ -1,5 +1,7 @@
 package semestralni.prace.boat;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Tommzs
@@ -8,19 +10,36 @@ public abstract class Boat {
     String name;
     int x;
     int y;
+    int size;
     boolean killed;
-    boolean[] body;
+    boolean[] health;
+
+    public Boat(String name, int x, int y, int size) {
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.killed = false;
+        this.health = new boolean[size];
+        Arrays.fill(health, true);
+    }
+    
+    
     
     boolean isKilled(){
-        for (int i = 0; i < body.length; i++) {
-            if (body[i]==false) {
+        for (int i = 0; i < health.length; i++) {
+            if (health[i]==false) {
                 killed = true;
-                return true;
+                return killed;
             }
         }
         return false;
     }
-
+    
+    public String getName() {
+        return name;
+    }
+    
     public int getX() {
         return x;
     }
