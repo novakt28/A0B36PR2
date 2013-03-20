@@ -29,3 +29,10 @@ se pøenesou do hry.
 - NetBeans IDE
 - knihovna swing pro GUI menu
 - knihovna Slick2D pro samotnou hru
+
+//Zdroje:
+- Vlastní (pøedchozí) znalosti
+- Pøednášky pana Doc.Ing. Ivana Jelínka, CSc.
+- Cvièení pana Ing. Zdeòka Buka, Ph.D.
+- Tutoriály od Buckyho Robertse (www.thenewboston.org)
+- Slick2d Wiki (www.slick2d.org)
