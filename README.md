@@ -17,8 +17,7 @@ ve dvou po lokální síti.
 - Hlavní tøída SemestralniPrace pouze spustí menu v balíèku gui.
 
 Následuje monost pøipojení èi zaloení hry (Lobby a Lobby_Connect)
-Spojení se uskuteèní pomocí tøíd v balíèku net (zatím jsem sítì nezvládl,
-brzy snad pochopím jak na to).
+Spojení se uskuteèní pomocí tøíd Client a Server v balíèku net.
 
 Po spojení se pøeneseme do balíèku game, kde se spustí samotná hra.
 - Tato èást je napsána pomocí Slick2D.
