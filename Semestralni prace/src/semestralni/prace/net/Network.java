@@ -17,7 +17,7 @@ import semestralni.prace.arrays.Array;
  *
  * @author Tommzs
  */
-public abstract class Network {
+public abstract class Network extends Thread{
     private ObjectOutputStream output;
     private ObjectInputStream input; 
     private Socket connection;

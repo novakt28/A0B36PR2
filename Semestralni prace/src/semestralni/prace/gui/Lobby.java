@@ -4,18 +4,25 @@
  */
 package semestralni.prace.gui;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import semestralni.prace.net.*;
+
 /**
  *
  * @author Tommzs
  */
 public class Lobby extends javax.swing.JFrame {
-
+    Network server;
     /**
      * Creates new form About
      */
-    public Lobby() {
+    public Lobby() throws IOException {
         initComponents();
         this.setDefaultCloseOperation(1);
+        
+        
     }
 
     /**
@@ -111,8 +118,13 @@ public class Lobby extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new Lobby().setVisible(true);
+                try {
+                    new Lobby().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

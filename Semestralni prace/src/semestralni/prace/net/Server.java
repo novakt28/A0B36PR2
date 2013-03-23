@@ -8,8 +8,6 @@ import java.io.*;
 import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import semestralni.prace.arrays.*;
 
 /**
  *
@@ -21,9 +19,6 @@ public final class Server extends Network{
     int port;
     ServerSocket server;
     private Socket connection;
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
-    
 
     public Server() {
         run = true;

@@ -2,14 +2,11 @@ package semestralni.prace.net;
 
 import java.io.*;
 import java.net.*;
-import semestralni.prace.arrays.*;
 /**
  *
  * @author Tommzs
  */
 public final class Client  extends Network{
-    private ObjectOutputStream output;
-    private ObjectInputStream input;
     private String serverIP;
     private Socket connection;
     

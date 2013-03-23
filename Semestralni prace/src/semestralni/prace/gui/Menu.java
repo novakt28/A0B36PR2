@@ -4,7 +4,12 @@ package semestralni.prace.gui;
  *
  * @author Tommzs
  */
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import semestralni.prace.*;
+import semestralni.prace.net.Network;
+import semestralni.prace.net.Server;
 public class Menu extends javax.swing.JFrame {
 
     /**
@@ -105,8 +110,34 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Lobby lobby = new Lobby();
-        lobby.setVisible(true);
+        
+        
+        
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+               @Override
+            public void run() {
+        try {
+            Lobby lobby;
+            lobby = new Lobby();
+            lobby.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }}});
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Network server = new Server();
+                    server.startRunning();
+                } catch (IOException ex) {
+                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -138,6 +169,7 @@ public class Menu extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Menu().setVisible(true);
             }
