@@ -100,6 +100,7 @@ public class Lobby_Connect extends javax.swing.JFrame {
         String ip = jTextField1.getText();
         try {
             client = new Client(ip);
+            client.run();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

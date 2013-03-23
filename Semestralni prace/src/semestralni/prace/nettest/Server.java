@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import semestralni.prace.arrays.Array;
 
-public class Server extends Thread
+public class Server implements Runnable
 {
    private ServerSocket serverSocket;
    Socket server;
@@ -24,12 +24,13 @@ public class Server extends Thread
    boolean connected;
    Array array;
    
-   public Server(int port) throws IOException
+   public Server() throws IOException
    {
-      serverSocket = new ServerSocket(port);
+      //serverSocket = new ServerSocket(port);
       serverSocket.setSoTimeout(10000);
       listen = true;
       connected = false;
+      //port = 7777;
    }
 
     public void pushArray(Array array) throws IOException {
@@ -70,6 +71,7 @@ public class Server extends Thread
       {
          try
          {
+             //server socket setting???
             System.out.println("Waiting for client on port " +
             serverSocket.getLocalPort() + "...");
             server = serverSocket.accept();

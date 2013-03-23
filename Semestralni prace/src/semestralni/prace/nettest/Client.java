@@ -14,10 +14,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import semestralni.prace.arrays.Array;
 
-public class Client {
+public class Client implements Runnable{
 
     String serverIP;
-    int port;
+    int port = 7777;
     Socket client;
     OutputStream output;
     ObjectOutputStream outToServer;
@@ -30,6 +30,17 @@ public class Client {
 
     }
 
+    @Override
+    public void run(){
+        try {
+            tryToConnect();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void tryToConnect() throws UnknownHostException, IOException {
         System.out.println("Connecting to " + serverIP + " on port " + port);
         client = new Socket(serverIP, port);

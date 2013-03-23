@@ -15,6 +15,7 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    Network server;
     public Menu() {
         initComponents();
     }
@@ -111,31 +112,18 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         
-        
-        
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-               @Override
-            public void run() {
-        try {
             Lobby lobby;
+        try {
             lobby = new Lobby();
             lobby.setVisible(true);
+            
+            server = new Server();
+            server.run();
         } catch (IOException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }}});
+        }
+            
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Network server = new Server();
-                    server.startRunning();
-                } catch (IOException ex) {
-                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
         
         
     }//GEN-LAST:event_jButton4ActionPerformed

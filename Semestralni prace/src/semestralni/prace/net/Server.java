@@ -32,7 +32,6 @@ public final class Server extends Network{
         
     }
 
-    @Override
     public void startRunning() {
 
         try {
@@ -58,6 +57,11 @@ public final class Server extends Network{
    private void waitForConnection() throws IOException { 
            connection = server.accept();   
            showMessage("Connected to: "+connection.getInetAddress().getHostName());
+    }
+
+    @Override
+    public void run() {
+        startRunning();
     }
 
     

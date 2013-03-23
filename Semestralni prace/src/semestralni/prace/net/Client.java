@@ -2,11 +2,13 @@ package semestralni.prace.net;
 
 import java.io.*;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Tommzs
  */
-public final class Client  extends Network{
+public class Client  extends Network{
     private String serverIP;
     private Socket connection;
     
@@ -16,7 +18,7 @@ public final class Client  extends Network{
         
     }
     
-    @Override
+    
     public void startRunning() throws IOException{
         try {
             connectToServer();
@@ -32,6 +34,15 @@ public final class Client  extends Network{
     private void connectToServer() throws IOException {
         connection = new Socket(InetAddress.getByName(serverIP), 7755);
         showMessage("Connected to: "+connection.getInetAddress().getHostName());
+    }
+
+    @Override
+    public void run() {
+        try {
+            startRunning();
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
    

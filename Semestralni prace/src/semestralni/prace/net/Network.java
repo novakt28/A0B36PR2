@@ -17,7 +17,7 @@ import semestralni.prace.arrays.Array;
  *
  * @author Tommzs
  */
-public abstract class Network extends Thread{
+public abstract class Network implements Runnable{
     private ObjectOutputStream output;
     private ObjectInputStream input; 
     private Socket connection;
@@ -61,7 +61,8 @@ public abstract class Network extends Thread{
            }
         }while(run);
     }
-     
-     public abstract void startRunning() throws IOException;
+
+    @Override
+    public abstract void run();
      
 }
