@@ -12,12 +12,13 @@ import java.io.*;
 import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import semestralni.prace.arrays.Array;
 
-public class Client implements Runnable{
+public class Client2 implements Runnable{
 
     String serverIP;
-    int port = 7777;
+    int port = 7755;
     Socket client;
     OutputStream output;
     ObjectOutputStream outToServer;
@@ -25,7 +26,7 @@ public class Client implements Runnable{
     Array array;
     boolean listen = true;
 
-    public Client(String serverIP) throws IOException {
+    public Client2(String serverIP) throws IOException {
         this.serverIP = serverIP;
 
     }
@@ -35,27 +36,27 @@ public class Client implements Runnable{
         try {
             tryToConnect();
         } catch (UnknownHostException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Client2.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Client2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void tryToConnect() throws UnknownHostException, IOException {
-        System.out.println("Connecting to " + serverIP + " on port " + port);
-        client = new Socket(serverIP, port);
-        System.out.println("Just connected to " + client.getRemoteSocketAddress());
         output = client.getOutputStream();
         outToServer = new ObjectOutputStream(output);
+        input = new ObjectInputStream(client.getInputStream());
+        client = new Socket(serverIP, port);
+        JOptionPane.showMessageDialog(null, "CONNECTED!!");
     }
 
     public void startListening() throws IOException {
-        input = new ObjectInputStream(client.getInputStream());
+        
         while (listen) {
             try {
                 array = (Array) input.readObject();
             } catch (IOException ex) {
-                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Client2.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 System.out.println("ClassNotFoundEx");
             }

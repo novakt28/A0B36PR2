@@ -5,7 +5,7 @@
 package semestralni.prace.gui;
 
 import java.io.IOException;
-import semestralni.prace.net.*;
+import semestralni.prace.nettest.*;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Lobby_Connect extends javax.swing.JFrame {
     /**
      * Creates new form About
      */
-    Network client;
+    Client2 client;
     public Lobby_Connect() {
         initComponents();
         this.setDefaultCloseOperation(1);
@@ -99,7 +99,7 @@ public class Lobby_Connect extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String ip = jTextField1.getText();
         try {
-            client = new Client(ip);
+            client = new Client2(ip);
             client.run();
         } catch (IOException ex) {
             ex.printStackTrace();

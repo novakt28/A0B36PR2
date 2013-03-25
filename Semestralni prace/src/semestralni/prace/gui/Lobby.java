@@ -7,14 +7,14 @@ package semestralni.prace.gui;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import semestralni.prace.net.*;
+import semestralni.prace.nettest.*;
 
 /**
  *
  * @author Tommzs
  */
 public class Lobby extends javax.swing.JFrame {
-    Network server;
+    
     /**
      * Creates new form About
      */
@@ -120,14 +120,21 @@ public class Lobby extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                Server2 server;
                 try {
                     new Lobby().setVisible(true);
+                    
+                    server = new Server2();
+                    server.run();
                 } catch (IOException ex) {
                     Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
+            
         });
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

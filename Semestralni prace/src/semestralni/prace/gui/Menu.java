@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import semestralni.prace.*;
-import semestralni.prace.net.Network;
-import semestralni.prace.net.Server;
+import semestralni.prace.nettest.Server2;
 public class Menu extends javax.swing.JFrame {
 
     /**
      * Creates new form Menu
      */
-    Network server;
+    
     public Menu() {
         initComponents();
     }
@@ -111,17 +110,15 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
-            Lobby lobby;
-        try {
-            lobby = new Lobby();
-            lobby.setVisible(true);
-            
-            server = new Server();
-            server.run();
-        } catch (IOException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Server2 server;
+                try {
+                    new Lobby().setVisible(true);
+                    
+                    server = new Server2();
+                    server.run();
+                } catch (IOException ex) {
+                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                }
             
         
         
