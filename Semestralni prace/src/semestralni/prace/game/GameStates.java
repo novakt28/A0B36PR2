@@ -9,8 +9,9 @@ package semestralni.prace.game;
  * @author Tommzs
  */
 public enum GameStates {
- CONNECTCLIENT,
+ CLIENT,
  BOATPLACING,
- PLAY
+ PLAY,
+ SERVER
 } 
 

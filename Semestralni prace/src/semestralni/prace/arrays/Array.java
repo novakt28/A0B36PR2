@@ -1,12 +1,13 @@
 package semestralni.prace.arrays;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import semestralni.prace.*;
 /**
  *
  * @author Tommzs
  */
-public class Array {
+public class Array implements Serializable{
     boolean[][] array;
 
     public Array() {

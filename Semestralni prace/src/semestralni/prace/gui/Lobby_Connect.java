@@ -5,7 +5,10 @@
 package semestralni.prace.gui;
 
 import java.io.IOException;
-import semestralni.prace.nettest.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import semestralni.prace.game.Game;
+import semestralni.prace.net.*;
 
 /**
  *
@@ -16,7 +19,7 @@ public class Lobby_Connect extends javax.swing.JFrame {
     /**
      * Creates new form About
      */
-    Client2 client;
+    Game newgame;
     public Lobby_Connect() {
         initComponents();
         this.setDefaultCloseOperation(1);
@@ -93,17 +96,22 @@ public class Lobby_Connect extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     this.setVisible(false);
+        this.dispose();
+        Menu menu = new Menu();
+        menu.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String ip = jTextField1.getText();
         try {
-            client = new Client2(ip);
-            client.run();
+            String ip = jTextField1.getText();
+            Network client = new Client(ip, this);
+            Thread t1 = new Thread(client);
+            t1.start();
+              //set network here
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(Lobby_Connect.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -4,14 +4,13 @@
  */
 package semestralni.prace.net;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import semestralni.prace.arrays.Array;
+import semestralni.prace.gui.*;
 
 /**
  *
@@ -39,6 +38,8 @@ public abstract class Network implements Runnable{
             output.close();
             input.close();
             connection.close();
+            } catch (NullPointerException ex){
+                showMessage("ERROR: Closing closed...");
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -47,8 +48,11 @@ public abstract class Network implements Runnable{
      public void setupStreams() throws IOException {
         output = new ObjectOutputStream(connection.getOutputStream());
         output.flush();
-        
         input = new ObjectInputStream(connection.getInputStream());
+        
+        
+        
+        
     }
      
      public void whilePlaying() throws IOException {

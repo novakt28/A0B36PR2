@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import semestralni.prace.gui.*;
 
 /**
  *
@@ -19,34 +20,38 @@ public final class Server extends Network{
     int port;
     ServerSocket server;
     private Socket connection;
+    Lobby lobby;
 
-    public Server() {
+    public Server(Lobby lobby) {
+        this.lobby = lobby;
         run = true;
         port = 7755;
         backlog = 100;
-        try {
-            this.server = new ServerSocket(port, backlog);
-        } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
     }
 
     public void startRunning() {
-
+try {
+            this.server = new ServerSocket(port, backlog);
+        } catch (IOException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             
             try {
                 while (true) {
                     waitForConnection();
                     setupStreams();
+                    lobby.dispose();
+                    
+                    //START THE THREAD HERE
+                    
                     whilePlaying();
                 }
             } catch (EOFException ex) {
                 showMessage("Server ended the connection!");
-            }finally{
-               closeConnection();
-           }
+            }
             
           
         } catch (IOException ex) {

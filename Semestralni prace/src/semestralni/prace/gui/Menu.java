@@ -4,17 +4,14 @@ package semestralni.prace.gui;
  *
  * @author Tommzs
  */
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import semestralni.prace.*;
-import semestralni.prace.nettest.Server2;
+import semestralni.prace.net.*;
 public class Menu extends javax.swing.JFrame {
 
     /**
      * Creates new form Menu
      */
-    
+    Lobby lobby;
     public Menu() {
         initComponents();
     }
@@ -101,24 +98,24 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
         Lobby_Connect connect = new Lobby_Connect();
         connect.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Server2 server;
-                try {
-                    new Lobby().setVisible(true);
+        lobby = new Lobby();
+        Network server = new Server(lobby);
+        Thread t1 = new Thread(server);
+        t1.start();
+        this.dispose();
+        lobby.setVisible(true);
                     
-                    server = new Server2();
-                    server.run();
-                } catch (IOException ex) {
-                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-                }
             
         
         

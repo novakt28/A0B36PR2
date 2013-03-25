@@ -4,40 +4,49 @@
  */
 package semestralni.prace.game;
 
+import java.io.*;
+import java.net.ServerSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
-import semestralni.prace.*;
+import semestralni.prace.arrays.Array;
 /**
  *
  * @author Tommzs
  */
-class ConnectClient extends BasicGameState {
+class Server extends BasicGameState {
     Image background;
+    Image waitForConnection;
     
-    public ConnectClient(int state) {
-        
+
+    public Server(int state) {
+      
+
     }
 
     @Override
     public int getID() {
-        return GameStates.CONNECTCLIENT.ordinal();
+        return GameStates.SERVER.ordinal();
     }
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        background = new Image("semestralni/prace/res/background.png");
+        background = new Image("semestralni\\prace\\res\\back.png");
+        waitForConnection = new Image("semestralni\\prace\\res\\waitforconnection.png");
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
         g.drawImage(background, 0, 0);
-        g.drawString("This is PLAY screen", 100, 100);
+        g.drawImage(waitForConnection, 500, 250);
         
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-        
+         
+          
     }
     
 }
