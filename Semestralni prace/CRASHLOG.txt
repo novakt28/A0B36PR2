@@ -10,3 +10,4 @@ Thu Mar 28 10:44:33 CET 2013: semestralni.prace.gui.Client: java.net.ConnectExce
 Thu Mar 28 12:49:54 CET 2013: semestralni.prace.gui.Server: java.net.SocketException: Connection reset
 Mon Apr 01 20:08:13 CEST 2013: semestralni.prace.gui.Client: java.net.ConnectException: Connection refused: connect
 Mon Apr 01 20:41:11 CEST 2013: semestralni.prace.gui.Server: java.net.SocketException: Connection reset
+Mon Apr 01 23:49:08 CEST 2013: semestralni.prace.gui.Client: java.net.SocketException: Connection reset

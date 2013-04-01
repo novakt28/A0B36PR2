@@ -4,6 +4,10 @@
  */
 package semestralni.prace.gui;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 /**
@@ -99,9 +103,13 @@ public class Lobby extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
-        Thread t1 = new Thread(new Client(jTextField1.getText()));
-        t1.start();       
+        try {
+            this.dispose();
+            Thread t1 = new Thread(new Client(jTextField1.getText()));       
+            t1.start();
+        } catch (IOException ex) {
+            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

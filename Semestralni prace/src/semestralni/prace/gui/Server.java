@@ -39,12 +39,12 @@ public class Server extends JFrame implements Runnable {
     };
 
     //Constructor
-    public Server() {
+    public Server() throws IOException {
         //Layout setting
-        super("NETBoats v0.000001");
+        super(Strings.gametitle);
         this.gameRunning = true;
 
-        setTitle("NETBoats v0.000001");
+        setTitle(Strings.gametitle);
         setSize(2* columns * 25 + 200, lines * 25 + 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -52,9 +52,9 @@ public class Server extends JFrame implements Runnable {
 
 
         menuBar = new JMenuBar();
-        game = new JMenu("Game");
-        newGame = new JMenuItem("New Game");
-        exitGame = new JMenuItem("Exit Game");
+        game = new JMenu(Strings.game);
+        newGame = new JMenuItem(Strings.newGame);
+        exitGame = new JMenuItem(Strings.exitGame);
         menuBar.add(game);
         game.add(newGame);
         game.add(exitGame);
@@ -82,10 +82,10 @@ public class Server extends JFrame implements Runnable {
                     setupStreams();
                     whilePlaying();
                 } catch (EOFException e) {
-                    setStatusBar("Client terminated connection");
+                    setStatusBar(Strings.clientTerminated);
                     Util.writeToFile(this.getClass().getName() + ": " + e);
                 } catch (IOException e) {
-                    setStatusBar("Sending/Recieving data error");
+                    setStatusBar(Strings.errorIO);
                     Util.writeToFile(this.getClass().getName() + ": " + e);
                 } finally {
                     close();
@@ -98,9 +98,10 @@ public class Server extends JFrame implements Runnable {
     
     //Waiting for connection
     private void waitForConnection() throws IOException {
-        setStatusBar("Waiting for connection...");
+        setStatusBar(Strings.waitingForConnection);
         connection = server.accept();
-        setStatusBar("Connected to: " + connection.getInetAddress().getHostName());
+        setStatusBar(Strings.connectedTo + connection.getInetAddress().getHostName());
+        gameLayout.turnButtons(true);
     }
 
     //Setting up streams
@@ -114,7 +115,7 @@ public class Server extends JFrame implements Runnable {
     
     //Actions during game
     private void whilePlaying() throws IOException {
-        String message = "Connected to: "+connection.getInetAddress().getHostName();
+        String message = Strings.connectedTo+connection.getInetAddress().getHostName();
         setStatusBar(message);
         int[] shot;
         do {
@@ -123,7 +124,7 @@ public class Server extends JFrame implements Runnable {
                 shot = (int[]) input.readObject();
                 // CO DELAT S PRICHOZIMY DATY
             } catch (ClassNotFoundException e) {
-                setStatusBar("Invalid data");
+                setStatusBar(Strings.invalidData);
                 Util.writeToFile(this.getClass().getName()+": "+e);
             }
         } while (gameRunning);
@@ -131,20 +132,20 @@ public class Server extends JFrame implements Runnable {
 
     //Closing connection
     private void close() {
-        setStatusBar("Closing Connection...");
+        setStatusBar(Strings.closingConnection);
         try {
             output.close(); // NullPointerException errors
             input.close();
             connection.close();
         } catch (IOException e) {
-             setStatusBar("Closing connection error...");
+             setStatusBar(Strings.closingConnectionError);
             Util.writeToFile(this.getClass().getName()+": "+e);
         }
 
     }
 
     // Status bar text setting method
-    private void setStatusBar(String message) {
+    public void setStatusBar(String message) {
         statusBar.setText(message);
     }
 
@@ -154,7 +155,7 @@ public class Server extends JFrame implements Runnable {
         try {
            // output.writeObject(/*object*/);
         } catch (NullPointerException e) {
-            String message = "Cannot send data!";
+            String message = Strings.cannotSendData;
             JOptionPane.showMessageDialog(null, message);
         }
         output.flush();

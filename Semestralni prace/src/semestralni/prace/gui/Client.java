@@ -36,7 +36,7 @@ public class Client extends JFrame implements Runnable {
     };
  
     //Constructor
-    public Client(String ip) {
+    public Client(String ip) throws IOException {
         //Layout setting
         super(Strings.gametitle);
         this.ip = ip;
@@ -99,7 +99,7 @@ public class Client extends JFrame implements Runnable {
  
     //Actions durring game
     private void whilePlaying() throws IOException {
-        String message = "Connected to: "+connection.getInetAddress().getHostName();
+        String message = Strings.connectedTo+connection.getInetAddress().getHostName();
         int[] shot;
         setStatusBar(message);
  
@@ -108,10 +108,10 @@ public class Client extends JFrame implements Runnable {
             try {
                 shot = (int[]) input.readObject();
                 gameLayout.repaint();
-                System.out.println("Shot: "+Arrays.toString(shot));
+                System.out.println(Strings.shot+Arrays.toString(shot));
                 setStatusBar(message);
             } catch (ClassNotFoundException e) {
-                setStatusBar("Invalid data");
+                setStatusBar(Strings.invalidData);
                 Util.writeToFile(this.getClass().getName()+": "+e);
             }
         } while (gameRunning);
@@ -119,28 +119,29 @@ public class Client extends JFrame implements Runnable {
  
     // Close connetion
     private void close() {
-        setStatusBar("Closing Connection...");
+        setStatusBar(Strings.closingConnection);
         try {
             output.close();
             input.close();
             connection.close();
         } catch (IOException e) {
-            setStatusBar("Closing connection error...");
+            setStatusBar(Strings.closingConnectionError);
             Util.writeToFile(this.getClass().getName()+": "+e);
         }
  
     }
  
     // Status bar text setting method
-    private void setStatusBar(String message) {
+    public void setStatusBar(String message) {
         statusBar.setText(message);
     }
  
     //Connecting to server
     private void connectToServer() throws IOException {
-        setStatusBar("Attempting connection...");
+        setStatusBar(Strings.attemptingConnection);
         connection = new Socket(InetAddress.getByName(ip), 7755);
-        setStatusBar("Connected to: " + connection.getInetAddress().getHostName());
+        setStatusBar(Strings.connectedTo+ connection.getInetAddress().getHostName());
+        gameLayout.turnButtons(true);
     }
  
     //Sending data
@@ -149,7 +150,7 @@ public class Client extends JFrame implements Runnable {
         try {
            // output.writeObject(/*object*/);
         } catch (NullPointerException e) {
-            String message = "Cannot send data!";
+            String message = Strings.cannotSendData;
             JOptionPane.showMessageDialog(null, message);
         }
         output.flush();
