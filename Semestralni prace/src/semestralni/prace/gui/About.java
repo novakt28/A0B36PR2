@@ -15,6 +15,7 @@ public class About extends javax.swing.JFrame {
      */
     public About() {
         initComponents();
+        this.setLocationRelativeTo( null );
         this.setDefaultCloseOperation(1);
     }
 
@@ -44,7 +45,7 @@ public class About extends javax.swing.JFrame {
 
         jLabel1.setText("Tomáš Novák 2013");
 
-        jLabel2.setText("LANShips semestral work at Czech Technical University");
+        jLabel2.setText("NETShips semestral work at Czech Technical University");
 
         jLabel3.setText("Programming 2, Cybernetics and Robotics");
 

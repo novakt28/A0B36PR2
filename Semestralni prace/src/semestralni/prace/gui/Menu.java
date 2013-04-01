@@ -5,16 +5,18 @@ package semestralni.prace.gui;
  * @author Tommzs
  */
 import semestralni.prace.*;
-import semestralni.prace.net.*;
-public class Menu extends javax.swing.JFrame {
+public class Menu extends javax.swing.JFrame{
 
     /**
      * Creates new form Menu
      */
-    Lobby lobby;
+    
     public Menu() {
+       this.setLocationRelativeTo( null );
         initComponents();
     }
+    
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,6 +34,7 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(Strings.gametitle);
+        setLocationByPlatform(true);
         setResizable(false);
 
         jButton1.setText("Exit");
@@ -104,20 +107,17 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
-        Lobby_Connect connect = new Lobby_Connect();
-        connect.setVisible(true);
+        Lobby lobby = new Lobby();
+        lobby.setVisible(true); 
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        lobby = new Lobby();
-        Network server = new Server(lobby);
-        Thread t1 = new Thread(server);
-        t1.start();
+  
         this.dispose();
-        lobby.setVisible(true);
-                    
-            
-        
+        Thread t1 = new Thread(new Server());
+        t1.start();
+       
         
         
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -163,4 +163,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     // End of variables declaration//GEN-END:variables
+
+    
 }
