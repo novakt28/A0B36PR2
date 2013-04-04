@@ -4,10 +4,17 @@
  */
 package semestralni.prace.gui.listeners;
 
+import java.awt.event.*;
+
 /**
  *
  * @author Tommzs
  */
-public class ShotArrayListener {
+public class ShotArrayListener implements ActionListener{
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        
+    }
     
 }

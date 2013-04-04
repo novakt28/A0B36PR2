@@ -26,6 +26,7 @@ public class Strings {
     public static final String closingConnectionError = "Closing connection error...";
     public static final String invalidData = "Invalid data";
     public static final String cannotSendData = "Cannot send data!";
+    public static final String cannotPutBoat = "You cannot put the boat here.";
     
     //Game related messages
     public static final String shot = "Shot: ";
@@ -39,6 +40,7 @@ public class Strings {
     public static final String right = "˃";
     public static final String rotate = "R";
     public static final String infoStringStart = "Start with placing your boats. Click on one on the left.";
-          
+    public static final String noMoreBoats = "You cannot add more boats of this type.";
+    public static final String unknownButtonPressed = "Unknow button pressed. Try again.";
              
 }

@@ -25,6 +25,7 @@ public class Client extends JFrame implements Runnable {
     private String ip;
     private int lines = Constants.X;
     private int columns = Constants.Y;
+    
     private boolean gameRunning;
     //ActionListener for JMenuBar 
     private ActionListener actionListener = new ActionListener() {

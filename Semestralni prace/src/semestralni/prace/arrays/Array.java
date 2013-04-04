@@ -1,13 +1,12 @@
 package semestralni.prace.arrays;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import semestralni.prace.*;
 /**
  *
  * @author Tommzs
  */
-public class Array implements Serializable{
+public class Array{
     boolean[][] array;
 
     public Array() {
@@ -15,11 +14,11 @@ public class Array implements Serializable{
     }
     
     
-    boolean[][] getArray(){  
+    public boolean[][] getArray(){  
         return this.array;
     }
     
-    void setArray(boolean[][] array){    
+    public void setArray(boolean[][] array){    
         this.array = array;
     }
 
