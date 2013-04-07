@@ -26,40 +26,16 @@ public class Boat4 extends BoatParent{
         a[x-1][y] = true;
         a[x+2][y] = true;
         a[x][y-1] = true;
-        a[x+1][y-1] = true;
+        
     }
 
    
 
-    @Override
+  
     public boolean checkSurrounding() {
         // include in putInArray and every move!!!!
         return true;
     }
 
-    @Override
-    public void moveRight(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void moveLeft(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void moveUp(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void moveDown(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void rotate(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
     
 }

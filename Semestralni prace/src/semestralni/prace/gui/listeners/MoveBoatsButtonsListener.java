@@ -8,6 +8,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import semestralni.prace.*;
 import semestralni.prace.arrays.Array;
+import semestralni.prace.boat.BoatParent;
 import semestralni.prace.gui.GameLayout;
 
 /**
@@ -72,6 +73,11 @@ public class MoveBoatsButtonsListener implements ActionListener {
             GameLayout.repaintGameArray();
         } catch (ArrayIndexOutOfBoundsException e) {
             GameLayout.setInfo(Strings.cannotPutBoat);
+        } finally {
+            BoatParent.setGoDown(true);
+            BoatParent.setGoLeft(true);
+            BoatParent.setGoUp(true);
+            BoatParent.setGoRight(true);
         }
     }
 }

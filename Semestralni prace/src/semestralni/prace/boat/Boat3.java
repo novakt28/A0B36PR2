@@ -29,36 +29,5 @@ public class Boat3 extends BoatParent {
 
    
 
-    @Override
-    public boolean checkSurrounding() {
-        // include in putInArray and every move!!!!
-        return true;
-    }
-
-    @Override
-    public void moveRight(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void moveLeft(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void moveUp(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void moveDown(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void rotate(Array array) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     
 }

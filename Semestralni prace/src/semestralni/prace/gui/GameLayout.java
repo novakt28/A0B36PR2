@@ -79,7 +79,7 @@ public final class GameLayout extends JPanel implements Serializable {
         boat3 = new Boat3("boat3", 0, 0, 4, boat3label);
         boat3label.setText("" + boat3.getNumberOfBoats());
         boat4label = new JLabel();
-        boat4 = new Boat4("boat4", 0, 0, 6, boat4label);
+        boat4 = new Boat4("boat4", 0, 0, 5, boat4label);
         boat4label.setText("" + boat4.getNumberOfBoats());
 
 
