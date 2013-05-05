@@ -64,7 +64,9 @@ public class MoveBoatsButtonsListener implements ActionListener {
                 case "rotate":
                     GameLayout.getBoat().rotate(array);
                     break;
-                case "start": // start actuall game 
+                case "start": if (GameLayout.getBoat1().getNumberOfBoats() == 0 && GameLayout.getBoat2().getNumberOfBoats() == 0 && GameLayout.getBoat3().getNumberOfBoats() == 0 && GameLayout.getBoat4().getNumberOfBoats() == 0){
+                GameLayout.setGameOn();
+                } 
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, Strings.unknownButtonPressed);

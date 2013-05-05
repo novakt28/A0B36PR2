@@ -19,13 +19,68 @@ public class Boat4 extends BoatParent{
    
    
     @Override
-    public void putInArray(Array array) {
+    public boolean putInArray(Array array) {
         boolean[][] a = array.getArray();
+        if (x != 0) {
+            if (a[x-1][y] == true) return false;
+            if (x!=1){
+            if (a[x-2][y] == true) return false;
+            }
+            if (y != 0) {
+                if (a[x - 1][y - 1] == true) {
+                    return false;
+                }
+            }
+            if (y != 9) {
+                if (a[x - 1][y + 1] == true) {
+                    return false;
+                }
+            }
+        }
+        if (x != 6) {
+            if (a[x + 4][y] == true) {
+                return false;
+            }
+            if (y != 0) {
+                if (a[x + 3][y - 1] == true) {
+                    return false;
+                }
+            }
+            if (y != 9) {
+                if (a[x + 3][y + 1] == true) {
+                    return false;
+                }
+            }
+        }
+
+        if (y != 9) {
+            if (a[x][y + 1] == true) {
+                return false;
+            }
+            if (a[x + 1][y + 1] == true) {
+                return false;
+            }
+            if (a[x + 2][y + 1] == true) {
+                return false;
+            }
+        }
+        if (y != 0) {
+            if (a[x][y - 1] == true) {
+                return false;
+            }
+            if (a[x + 1][y - 1] == true) {
+                return false;
+            }
+            if (a[x + 2][y - 1] == true) {
+                return false;
+            }
+        }
         a[x][y] = true;
         a[x+1][y] = true;
         a[x-1][y] = true;
         a[x+2][y] = true;
-        a[x][y-1] = true;
+        a[x+3][y] = true;
+        return true;
         
     }
 

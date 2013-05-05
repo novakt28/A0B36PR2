@@ -19,12 +19,38 @@ public class Boat2 extends BoatParent{
    
    
     @Override
-    public void putInArray(Array array) {
+    public boolean putInArray(Array array) {
         boolean[][] a = array.getArray();
+        if (x!=0){
+            if (a[x-1][y] == true) return false;
+            if (x!=1){
+            if (a[x-2][y] == true) return false;
+            }
+            if (y!=0){
+                if (a[x-1][y-1] == true) return false;
+            }
+            if (y!=9){
+                if (a[x-1][y+1] == true) return false;
+            }}
+        if (x!=8){
+            if (a[x+2][y] == true) return false;
+            if (y!=0){
+                if (a[x+1][y-1] == true) return false;
+            }
+            if (y!=9){
+                if (a[x+1][y+1] == true) return false;
+            }}
+        
+        if (y!=9){
+                if (a[x][y+1] == true) return false;
+            }
+        if (y!=0){
+                if (a[x][y-1] == true) return false;
+            }
         a[x][y] = true;
         a[x+1][y] = true;
         a[x-1][y] = true;
-        a[x][y-1] = true;
+        return true;
     }
 
 

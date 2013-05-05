@@ -35,10 +35,11 @@ public class BoatArrayListener implements ActionListener{
         
             try {
                 boat.putInArray(new Array()); // trying if it is out of bounds
-                boat.putInArray(GameLayout.getBoatArray());               
-                boat.setNumberOfBoats(boat.getNumberOfBoats() - 1);
+                boolean a = boat.putInArray(GameLayout.getBoatArray());               
+                if (a == true){ boat.setNumberOfBoats(boat.getNumberOfBoats() - 1);
                 GameLayout.localizationArrayUpdate(boat);
                 GameLayout.repaintGameArray();
+                }
             } catch (ArrayIndexOutOfBoundsException e) {   
                  GameLayout.setInfo(Strings.cannotPutBoat);
             } 

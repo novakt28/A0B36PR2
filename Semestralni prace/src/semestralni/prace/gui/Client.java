@@ -44,7 +44,7 @@ public class Client extends JFrame implements Runnable {
         this.gameRunning = true;
 
         setTitle(Strings.gametitle);
-        setSize(2*columns * 25 + 50, lines * 25 + 50);
+        setSize(2* columns * 25 + 200, lines * 25 + 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo( null );
         setResizable(false);
@@ -100,21 +100,22 @@ public class Client extends JFrame implements Runnable {
  
     //Actions durring game
     private void whilePlaying() throws IOException {
-        String message = Strings.connectedTo+connection.getInetAddress().getHostName();
-        int[] shot;
+        String message = Strings.connectedTo + connection.getInetAddress().getHostName();
         setStatusBar(message);
- 
+        int[] shot;
+        boolean hit;
         do {
             //Try to read another player's shot
             try {
                 shot = (int[]) input.readObject();
-                gameLayout.repaint();
-                System.out.println(Strings.shot+Arrays.toString(shot));
-                setStatusBar(message);
+                // CO DELAT S PRICHOZIMY DATY
             } catch (ClassNotFoundException e) {
                 setStatusBar(Strings.invalidData);
-                Util.writeToFile(this.getClass().getName()+": "+e);
+                Util.writeToFile(this.getClass().getName() + ": " + e);
             }
+            
+            hit = input.readBoolean();
+                // CO DELAT S PRICHOZIMY DATY
         } while (gameRunning);
     }
  
@@ -146,10 +147,23 @@ public class Client extends JFrame implements Runnable {
     }
  
     //Sending data
-    public static void sendShot(/*object*/) throws IOException {
-        
+    public static void sendShot(int x, int y) throws IOException {
+        int[] shot = new int[2];
+        shot[0] = x;
+        shot[1] = y;
         try {
-           // output.writeObject(/*object*/);
+            output.writeObject(shot);
+        } catch (NullPointerException e) {
+            String message = Strings.cannotSendData;
+            JOptionPane.showMessageDialog(null, message);
+        }
+        output.flush();
+        // TURN OF SENDING SHOTS
+    }
+    
+    public static void sendHit(boolean hit) throws IOException {
+        try {
+            output.writeObject(hit);
         } catch (NullPointerException e) {
             String message = Strings.cannotSendData;
             JOptionPane.showMessageDialog(null, message);
@@ -162,5 +176,9 @@ public class Client extends JFrame implements Runnable {
     @Override
     public void run() {
         startRunning();
+    }
+    
+    public static void getReady(){
+        GameLayout.setInfo("Shoot your shot.");
     }
 }

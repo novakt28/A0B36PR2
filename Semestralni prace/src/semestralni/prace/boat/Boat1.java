@@ -6,7 +6,6 @@ package semestralni.prace.boat;
 
 import javax.swing.JLabel;
 import semestralni.prace.arrays.*;
-import semestralni.prace.gui.GameLayout;
 
 /**
  *
@@ -20,11 +19,29 @@ public class Boat1 extends BoatParent {
     }
 
     @Override
-    public void putInArray(Array array) {
+    public boolean putInArray(Array array) {
         checkSurrounding();
         boolean[][] a = array.getArray();
+        if (x!=0){
+            if (a[x-1][y] == true) return false;
+            if (y!=0){
+                if (a[x][y-1] == true) return false;
+            }
+            if (y!=9){
+                if (a[x][y+1] == true) return false;
+            }}
+        if (x!=8){
+            if (a[x+2][y] == true) return false;
+            if (y!=0){
+                if (a[x+1][y-1] == true) return false;
+            }
+            if (y!=9){
+                if (a[x+1][y+1] == true) return false;
+            }}
         a[x][y] = true;
         a[x + 1][y] = true;
+        // ??? this.setNumberOfBoats(this.getNumberOfBoats() - 1);
+        return true;
     }
 
     

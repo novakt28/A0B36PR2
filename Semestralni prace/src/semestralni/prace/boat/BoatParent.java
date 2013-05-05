@@ -1,6 +1,5 @@
 package semestralni.prace.boat;
 
-import java.util.Arrays;
 import java.util.Stack;
 import javax.swing.JLabel;
 import semestralni.prace.arrays.*;
@@ -67,33 +66,59 @@ public abstract class BoatParent {
 
     public void moveUp(Array array) {
         boolean[][] a = array.getArray();
-        Stack check = stackBoat(a);
-        Stack squares = new Stack();
-        Stack squares2 = new Stack();
+        Stack<BoatLocalizator> check = stackBoat(a);
+        Stack<BoatLocalizator> squares = new Stack<>();
+        Stack<BoatLocalizator> squares2 = new Stack<>();
         BoatLocalizator[][] localizator = GameLayout.getLocalizatorArray();
-        if(!goUp) {
+        if (!goUp) {
             System.out.println("Cannot collide with boat on UP");
-            
+
             return;
         }
         while (!check.empty()) {
-            BoatLocalizator located = (BoatLocalizator) check.pop();
+            BoatLocalizator located = check.pop();
             squares.push(located);
-            
+            int testX = x - located.x;
+            int testY = y - located.y;
             if (y - located.y == 0) {
                 System.out.println("Cannot go up anymore!");
                 return;
             }
+            // KONROLA KOLIZE
+            if (localizator[testX][testY - 1] == null) {
+                
+                if ((testY) != 0){
+                if ((testY-1) != 0){
+                if (localizator[testX][testY - 2] != null) {
+                    System.out.println("Cannot go down anymore!");
+                    return;
+                }}}
+                
+                if (testX !=0){
+                if (localizator[testX - 1][testY-1] != null) {
+                    System.out.println("Cannot go down anymore!");
+                    return;
+                }}
+                
+                if (testX !=9){
+                if (localizator[testX + 1][testY-1] != null) {
+                    System.out.println("Cannot go down anymore!");
+                    return;
+                }}
+                
+                
+            }
+            //KONEC KONTROLY KOLIZE
         }
 
         while (!squares.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares.pop();
+            BoatLocalizator located = squares.pop();
             localizator[x - located.x][y - located.y] = null;
             a[x - located.x][y - located.y] = false;
             squares2.push(located);
         }
         while (!squares2.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares2.pop();
+            BoatLocalizator located = squares2.pop();
             a[x - located.x][y - located.y - 1] = true;
         }
         GameLayout.setActualY(GameLayout.getActualY() - 1);
@@ -101,32 +126,59 @@ public abstract class BoatParent {
 
     public void moveDown(Array array) {
         boolean[][] a = array.getArray();
-        Stack check = stackBoat(a);
-        Stack squares = new Stack();
-        Stack squares2 = new Stack();
+        Stack<BoatLocalizator> check = stackBoat(a);
+        Stack<BoatLocalizator> squares = new Stack<>();
+        Stack<BoatLocalizator> squares2 = new Stack<>();
         BoatLocalizator[][] localizator = GameLayout.getLocalizatorArray();
-        if(!goDown) {
+        if (!goDown) {
             System.out.println("Cannot collide with boat on DOWN");
-            
+
             return;
         }
         while (!check.empty()) {
-            BoatLocalizator located = (BoatLocalizator) check.pop();
+            BoatLocalizator located = check.pop();
             squares.push(located);
+            int testX = x - located.x;
+            int testY = y - located.y;
             if (y - located.y == 9) {
                 System.out.println("Cannot go down anymore!");
                 return;
             }
+            // KONROLA KOLIZE
+            if (localizator[testX][testY + 1] == null) {
+                
+                if ((testY) != 9){
+                if ((testY+1) != 9){
+                if (localizator[testX][testY + 2] != null) {
+                    System.out.println("Cannot go down anymore!");
+                    return;
+                }}}
+                
+                if (testX !=0){
+                if (localizator[testX - 1][testY+1] != null) {
+                    System.out.println("Cannot go down anymore!");
+                    return;
+                }}
+                
+                if (testX !=9){
+                if (localizator[testX + 1][testY+1] != null) {
+                    System.out.println("Cannot go down anymore!");
+                    return;
+                }}
+                
+                
+            }
+            //KONEC KONTROLY KOLIZE
         }
 
         while (!squares.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares.pop();
+            BoatLocalizator located = squares.pop();
             localizator[x - located.x][y - located.y] = null;
             a[x - located.x][y - located.y] = false;
             squares2.push(located);
         }
         while (!squares2.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares2.pop();
+            BoatLocalizator located = squares2.pop();
             a[x - located.x][y - located.y + 1] = true;
         }
 
@@ -137,31 +189,58 @@ public abstract class BoatParent {
 
     public void moveLeft(Array array) {
         boolean[][] a = array.getArray();
-        Stack check = stackBoat(a);
-        Stack squares = new Stack();
-        Stack squares2 = new Stack();
+        Stack<BoatLocalizator> check = stackBoat(a);
+        Stack<BoatLocalizator> squares = new Stack<>();
+        Stack<BoatLocalizator> squares2 = new Stack<>();
         BoatLocalizator[][] localizator = GameLayout.getLocalizatorArray();
-        if(!goLeft) {
+        if (!goLeft) {
             System.out.println("Cannot collide with boat on LEFT");
-            
+
             return;
         }
         while (!check.empty()) {
-            BoatLocalizator located = (BoatLocalizator) check.pop();
+            BoatLocalizator located = check.pop();
             squares.push(located);
+            int testX = x - located.x;
+            int testY = y - located.y;
             if (x - located.x == 0) {
                 System.out.println("Cannot go left anymore!");
                 return;
             }
+            // KONROLA KOLIZE
+            if (localizator[testX - 1][testY] == null) {
+                
+                if ((testX) != 0){
+                if ((testX-1) != 0){
+                if (localizator[testX - 2][testY] != null) {
+                    System.out.println("Cannot go left anymore!");
+                    return;
+                }}}
+                
+                if (testY !=0){
+                if (localizator[testX - 1][testY-1] != null) {
+                    System.out.println("Cannot go left anymore!");
+                    return;
+                }}
+                
+                if (testY !=9){
+                if (localizator[testX - 1][testY+1] != null) {
+                    System.out.println("Cannot go left anymore!");
+                    return;
+                }}
+                
+                
+            }
+            //KONEC KONTROLY KOLIZE
         }
         while (!squares.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares.pop();
+            BoatLocalizator located = squares.pop();
             localizator[x - located.x][y - located.y] = null;
             a[x - located.x][y - located.y] = false;
             squares2.push(located);
         }
         while (!squares2.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares2.pop();
+            BoatLocalizator located = squares2.pop();
             a[x - located.x - 1][y - located.y] = true;
         }
 
@@ -172,31 +251,58 @@ public abstract class BoatParent {
 
     public void moveRight(Array array) {
         boolean[][] a = array.getArray();
-        Stack check = stackBoat(a);
-        Stack squares = new Stack();
-        Stack squares2 = new Stack();
+        Stack<BoatLocalizator> check = stackBoat(a);
+        Stack<BoatLocalizator> squares = new Stack<>();
+        Stack<BoatLocalizator> squares2 = new Stack<>();
         BoatLocalizator[][] localizator = GameLayout.getLocalizatorArray();
-        if(!goRight) {
+        if (!goRight) {
             System.out.println("Cannot collide with boat on RIGHT");
-            
+
             return;
         }
         while (!check.empty()) {
-            BoatLocalizator located = (BoatLocalizator) check.pop();
+            BoatLocalizator located = check.pop();
             squares.push(located);
-            if (x - located.x == 9) {
-                System.out.println("Cannot go right anymore!");    
+            int testX = x - located.x;
+            int testY = y - located.y;
+            if (testX == 9) {
+                System.out.println("Cannot go right anymore!");
                 return;
             }
+// KONROLA KOLIZE
+            if (localizator[testX + 1][testY] == null) {
+                
+                if ((testX) != 9){
+                if ((testX+1) != 9){
+                if (localizator[testX + 2][testY] != null) {
+                    System.out.println("Cannot go right anymore!");
+                    return;
+                }}}
+                
+                if (testY !=0){
+                if (localizator[testX + 1][testY-1] != null) {
+                    System.out.println("Cannot go right anymore!");
+                    return;
+                }}
+                
+                if (testY !=9){
+                if (localizator[testX + 1][testY+1] != null) {
+                    System.out.println("Cannot go right anymore!");
+                    return;
+                }}
+                
+                
+            }
+            //KONEC KONTROLY KOLIZE
         }
         while (!squares.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares.pop();
+            BoatLocalizator located = squares.pop();
             localizator[x - located.x][y - located.y] = null;
             a[x - located.x][y - located.y] = false;
             squares2.push(located);
         }
         while (!squares2.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares2.pop();
+            BoatLocalizator located = squares2.pop();
             a[x - located.x + 1][y - located.y] = true;
         }
 
@@ -207,36 +313,93 @@ public abstract class BoatParent {
 
     public void rotate(Array array) {
         boolean[][] a = array.getArray();
-        Stack check = stackBoat(a);
-        Stack squares = new Stack();
-        Stack squares2 = new Stack();
+        Stack<BoatLocalizator> check = stackBoat(a);
+        Stack<BoatLocalizator> squares = new Stack<>();
+        Stack<BoatLocalizator> squares2 = new Stack<>();
         BoatLocalizator[][] localizator = GameLayout.getLocalizatorArray();
-        
+
         while (!check.empty()) {
-            BoatLocalizator located = (BoatLocalizator) check.pop();
+            BoatLocalizator located = check.pop();
             boolean test;
             squares.push(located);
-            
-             if (located.x == 0 && located.y == 0) {
-                 System.out.println("Skipping control");
+            int testX = y - located.x;
+            int testY = x + located.y;
+
+            if (located.x == 0 && located.y == 0) {
+                System.out.println("Skipping control");
             } else {
                 if (located.x != 0) {
-                    test = a[x - located.x + located.x][y - located.y - located.x];
+                    test = a[x][y - located.y - located.x];
+                    if(test != false){
+                    System.out.println("Cannot rotate!");
+                    return;
+                    }
+                    
+                    int sign = (int) Math.signum(located.x);
+                    if (testX != 9 && sign == -1 || testX != 0 && sign == 1){
+                    test = a[x][y - located.y - located.x - sign];
+                    if(test != false){
+                    System.out.println("Cannot rotate!");
+                    return;
+                    }}
+                    
+                    test = a[x-1][y - located.y - located.x];
+                    if(test != false){
+                    System.out.println("Cannot rotate!");
+                    return;
+                    }
+                    
+                    test = a[x+1][y - located.y - located.x];
+                    if(test != false){
+                    System.out.println("Cannot rotate!");
+                    return;
+                    }
+                    
+                    
                 }
                 if (located.y != 0) {
-                    test = a[x - located.x + located.y][y - located.y + located.y];
+//                    test = a[x - located.x + located.y][y];
+//                    if(test != false){
+//                    System.out.println("Cannot rotate!");
+//                    return;
+//                } 
+                    test = a[x + located.y + located.x][y];
+                    if(test != false){
+                    System.out.println("Cannot rotate!");
+                    return;
+                    }
+                    
+                    int sign = (int) Math.signum(located.y);
+                    if (testY != 0 && sign == -1 || testY != 9 && sign == 1){
+                    test = a[x + located.y + located.x + sign][y];
+                    if(test != false){
+                    System.out.println("Cannot rotate!");
+                    return;
+                    }}
+                    
+                    test = a[x + located.y + located.x][y-1];
+                    if(test != false){
+                    System.out.println("Cannot rotate!");
+                    return;
+                    }
+                    
+                    test = a[x + located.y + located.x][y+1];
+                    if(test != false){
+                    System.out.println("Cannot rotate!");
+                    return;
+                    }
                 }
             }
 //            
         }
         while (!squares.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares.pop();
+            BoatLocalizator located = squares.pop();
             localizator[x - located.x][y - located.y] = null;
             a[x - located.x][y - located.y] = false;
             squares2.push(located);
         }
         while (!squares2.empty()) {
-            BoatLocalizator located = (BoatLocalizator) squares2.pop();
+            BoatLocalizator located = squares2.pop();
             if (located.x == 0 && located.y == 0) {
                 a[x - located.x][y - located.y] = true;
             } else {
@@ -249,15 +412,15 @@ public abstract class BoatParent {
             }
         }
 
-       
+
 
 
     }
 
-    public abstract void putInArray(Array array);
+    public abstract boolean putInArray(Array array);
 
     private Stack stackBoat(boolean[][] a) {
-        Stack squares = new Stack();
+        Stack<BoatLocalizator> squares = new Stack<>();
         BoatLocalizator[][] localizator = GameLayout.getLocalizatorArray();
         this.setX(GameLayout.getActualX());
         this.setY(GameLayout.getActualY());
@@ -271,13 +434,14 @@ public abstract class BoatParent {
             testLocalizator = localizator[i][j];
             while (testLocalizator != null) {
                 squares.push(testLocalizator);
+
+
                 i++;
-                
                 testLocalizator = localizator[i][j];
             }
-                if (localizator[i+1][j]!= null) BoatParent.goRight=false;
-                if (localizator[i][j+1]!= null) BoatParent.goRight=false;
-                if (localizator[i][j-1]!= null) BoatParent.goRight=false;
+//                if (localizator[i+1][j]!= null) BoatParent.goRight=false;
+//                if (localizator[i][j+1]!= null) BoatParent.goRight=false;
+//                if (localizator[i][j-1]!= null) BoatParent.goRight=false;
         } catch (Exception e) {
             System.out.println("Exception catched, it should work..");
 
@@ -293,9 +457,9 @@ public abstract class BoatParent {
                 testLocalizator = localizator[i][j];
 
             }
-            if (localizator[i-1][j]!= null) BoatParent.goLeft=false;
-            if (localizator[i][j+1]!= null) BoatParent.goLeft=false;
-            if (localizator[i][j-1]!= null) BoatParent.goLeft=false;
+//            if (localizator[i-1][j]!= null) BoatParent.goLeft=false;
+//            if (localizator[i][j+1]!= null) BoatParent.goLeft=false;
+//            if (localizator[i][j-1]!= null) BoatParent.goLeft=false;
         } catch (Exception e) {
             System.out.println("Exception catched, it should work..");
 
@@ -312,9 +476,9 @@ public abstract class BoatParent {
                 testLocalizator = localizator[i][j];
 
             }
-            if (localizator[i][j+1]!= null) BoatParent.goDown=false;
-            if (localizator[i-1][j]!= null) BoatParent.goDown=false;
-            if (localizator[i+1][j]!= null) BoatParent.goDown=false;
+//            if (localizator[i][j+1]!= null) BoatParent.goDown=false;
+//            if (localizator[i-1][j]!= null) BoatParent.goDown=false;
+//            if (localizator[i+1][j]!= null) BoatParent.goDown=false;
         } catch (Exception e) {
             System.out.println("Exception catched, it should work..");
 
@@ -331,9 +495,9 @@ public abstract class BoatParent {
                 testLocalizator = localizator[i][j];
 
             }
-            if (localizator[i][j-1]!= null) BoatParent.goUp=false;
-            if (localizator[i-1][j]!= null) BoatParent.goUp=false;
-            if (localizator[i+1][j]!= null) BoatParent.goUp=false;
+//            if (localizator[i][j-1]!= null) BoatParent.goUp=false;
+//            if (localizator[i-1][j]!= null) BoatParent.goUp=false;
+//            if (localizator[i+1][j]!= null) BoatParent.goUp=false;
         } catch (Exception e) {
             System.out.println("Exception catched, it should work..");
 
@@ -342,10 +506,6 @@ public abstract class BoatParent {
 
     }
 
-                       
-
-
- 
     public static void setGoRight(boolean goRight) {
         BoatParent.goRight = goRight;
     }
@@ -361,6 +521,4 @@ public abstract class BoatParent {
     public static void setGoUp(boolean goUp) {
         BoatParent.goUp = goUp;
     }
-
 }
-

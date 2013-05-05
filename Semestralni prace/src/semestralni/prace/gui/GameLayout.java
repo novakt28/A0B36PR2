@@ -18,16 +18,16 @@ public final class GameLayout extends JPanel implements Serializable {
 
     private static JButton[][] boatButtons;
     private static JButton[][] shotButtons;
-    private JButton boat1button;
-    private JButton boat2button;
-    private JButton boat3button;
-    private JButton boat4button;
-    private JButton up;
-    private JButton down;
-    private JButton left;
-    private JButton right;
-    private JButton rotate;
-    private JButton start;
+    private static JButton boat1button;
+    private static JButton boat2button;
+    private static JButton boat3button;
+    private static JButton boat4button;
+    private static JButton up;
+    private static JButton down;
+    private static JButton left;
+    private static JButton right;
+    private static JButton rotate;
+    private static JButton start;
     private static JLabel info;
     private static JLabel boat1label;
     private static JLabel boat2label;
@@ -39,17 +39,19 @@ public final class GameLayout extends JPanel implements Serializable {
     private BufferedImage boat2icon;
     private BufferedImage boat3icon;
     private BufferedImage boat4icon;
-    private BoatArrayListener boatArrayListener;
+    private static BoatArrayListener boatArrayListener;
     private MoveBoatsButtonsListener moveBoatsButtonsListener;
-    private ShotArrayListener shotArrayListener;
+    private static ShotArrayListener shotArrayListener;
     private static BoatParent actualBoat;
     private static BoatParent boat1;
     private static BoatParent boat2;
     private static BoatParent boat3;
     private static BoatParent boat4;
     private static Array boatArray;
+    
+    private static Array shotArray =  new Array();
     private static BoatLocalizator[][] localizatorArray;
-    private boolean yourTurn = true;
+    private static boolean server;
     private int buttonSize;
     private int columns = Constants.X;
     private int lines = Constants.Y;
@@ -58,13 +60,13 @@ public final class GameLayout extends JPanel implements Serializable {
     private int[] lastShot;
 
     //Constructor
-    public GameLayout(boolean yourTurn) throws IOException {
+    public GameLayout(boolean server) throws IOException {
         setLayout(null);
         boatButtons = new ButtonXY[lines][columns];
         shotButtons = new ButtonXY[lines][columns];
         buttonSize = 25;
         lastShot = new int[2];
-        this.yourTurn = yourTurn;
+        this.setServer(server);
 
         boatArray = new Array();
         localizatorArray = new BoatLocalizator[Constants.X][Constants.Y];
@@ -85,7 +87,7 @@ public final class GameLayout extends JPanel implements Serializable {
 
         setUpListeners();
         fillGameLayout();
-        //turnButtons(false); // TO TURN OFF BEFORE CONNECTING
+        // turnButtons(false);  UNCOMMENT!!!!!
 
     }
 
@@ -110,7 +112,7 @@ public final class GameLayout extends JPanel implements Serializable {
                 shotButtons[i][j] = new ButtonXY(i, j);
                 shotButtons[i][j].setBounds(400 + 25 * i, 30 + 25 * j, buttonSize, buttonSize);
                 shotButtons[i][j].setBackground(Color.white);
-                shotButtons[i][j].addActionListener(shotArrayListener);
+                //shotButtons[i][j].addActionListener(shotArrayListener);
                 add(shotButtons[i][j]);
             }
         }
@@ -243,8 +245,12 @@ public final class GameLayout extends JPanel implements Serializable {
     }
 
     // Tells you whose turn it is
-    public boolean isYourTurn() {
-        return yourTurn;
+    public static boolean isServer() {
+        return server;
+    }
+    
+    public static void setServer(boolean server) {
+        GameLayout.server = server;
     }
 
     //Gets last shot
@@ -326,7 +332,7 @@ public final class GameLayout extends JPanel implements Serializable {
     }
 
     public static void localizationArrayUpdate(BoatParent boat) {
-        
+
         for (int i = 0; i < GameLayout.getLocalizatorArray().length; i++) {
             for (int j = 0; j < GameLayout.getLocalizatorArray().length; j++) {
                 if (GameLayout.getBoatArray().getArray()[i][j] == true && GameLayout.getLocalizatorArray()[i][j] == null) {
@@ -334,5 +340,40 @@ public final class GameLayout extends JPanel implements Serializable {
                 }
             }
         }
+    }
+
+    public static void setGameOn() {
+        turnPlaceButtons(false);
+        if (isServer()) {
+            Server.getReady();
+        } else {
+            Client.getReady();
+        }
+
+        for (int i = 0; i < shotButtons.length; i++) {
+            for (int j = 0; j < shotButtons[0].length; j++) {
+                shotButtons[i][j].addActionListener(shotArrayListener);
+            }
+        }
+        
+    }
+
+    public static void turnPlaceButtons(boolean on) {
+        for (int i = 0; i < boatButtons.length; i++) {
+            for (int j = 0; j < boatButtons[0].length; j++) {
+                boatButtons[i][j].removeActionListener(boatArrayListener);
+
+            }
+        }
+        boat1button.setEnabled(on);
+        boat2button.setEnabled(on);
+        boat3button.setEnabled(on);
+        boat4button.setEnabled(on);
+        up.setEnabled(on);
+        down.setEnabled(on);
+        left.setEnabled(on);
+        right.setEnabled(on);
+        rotate.setEnabled(on);
+        start.setEnabled(on);
     }
 }

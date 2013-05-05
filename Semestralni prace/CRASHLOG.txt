@@ -14,3 +14,11 @@ Mon Apr 01 23:49:08 CEST 2013: semestralni.prace.gui.Client: java.net.SocketExce
 Tue Apr 02 22:05:10 CEST 2013: semestralni.prace.gui.Server: java.net.BindException: Address already in use: JVM_Bind
 Fri Apr 05 13:59:30 CEST 2013: semestralni.prace.gui.Server: java.net.BindException: Address already in use: JVM_Bind
 Fri Apr 05 14:00:10 CEST 2013: semestralni.prace.gui.Server: java.net.BindException: Address already in use: JVM_Bind
+Sun May 05 17:59:07 CEST 2013: semestralni.prace.gui.Client: java.net.SocketException: Connection reset
+Sun May 05 22:56:31 CEST 2013: semestralni.prace.gui.Client: java.net.SocketException: Connection reset
+Sun May 05 23:34:00 CEST 2013: semestralni.prace.gui.Client: java.io.EOFException
+Sun May 05 23:36:13 CEST 2013: semestralni.prace.gui.Server: java.io.EOFException
+Sun May 05 23:36:14 CEST 2013: semestralni.prace.gui.Client: java.io.EOFException
+Sun May 05 23:36:14 CEST 2013: semestralni.prace.gui.Client: java.net.SocketException: Software caused connection abort: socket write error
+Sun May 05 23:39:15 CEST 2013: semestralni.prace.gui.Server: java.io.EOFException
+Sun May 05 23:39:15 CEST 2013: semestralni.prace.gui.Client: java.io.EOFException

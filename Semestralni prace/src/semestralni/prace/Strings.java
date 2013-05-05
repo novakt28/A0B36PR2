@@ -16,6 +16,7 @@ public class Strings {
     //Client/Server related messages
     public static final String clientTerminated = "Client terminated connection";
     public static final String connectedTo = "Connected to:";
+    public static final String connected = "Connected!";
     
     public static final String closingConnection = "Closing Connection...";
     public static final String attemptingConnection = "Attempting connection...";

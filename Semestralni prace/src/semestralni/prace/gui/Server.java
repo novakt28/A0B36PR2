@@ -45,7 +45,7 @@ public class Server extends JFrame implements Runnable {
         this.gameRunning = true;
 
         setTitle(Strings.gametitle);
-        setSize(2* columns * 25 + 200, lines * 25 + 100);
+        setSize(2 * columns * 25 + 200, lines * 25 + 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         setResizable(false);
@@ -62,7 +62,7 @@ public class Server extends JFrame implements Runnable {
         statusBar = new JLabel();
         statusBar.setPreferredSize(new Dimension(100, 16));
 
-        gameLayout = new GameLayout(false);
+        gameLayout = new GameLayout(true);
         newGame.addActionListener(actionListener);
         exitGame.addActionListener(actionListener);
 
@@ -70,7 +70,7 @@ public class Server extends JFrame implements Runnable {
         add(gameLayout, BorderLayout.CENTER);
         add(statusBar, BorderLayout.SOUTH);
     }
-    
+
     //Server handling method
     public void startRunning() {
         this.setVisible(true);
@@ -92,15 +92,15 @@ public class Server extends JFrame implements Runnable {
                 }
             }
         } catch (IOException e) {
-            Util.writeToFile(this.getClass().getName()+": "+e);
+            Util.writeToFile(this.getClass().getName() + ": " + e);
         }
     }
-    
+
     //Waiting for connection
     private void waitForConnection() throws IOException {
         setStatusBar(Strings.waitingForConnection);
         connection = server.accept();
-        setStatusBar(Strings.connectedTo + connection.getInetAddress().getHostName());
+        setStatusBar(Strings.connected);
         gameLayout.turnButtons(true);
     }
 
@@ -112,21 +112,28 @@ public class Server extends JFrame implements Runnable {
 
 
     }
-    
+
     //Actions during game
     private void whilePlaying() throws IOException {
-        String message = Strings.connectedTo+connection.getInetAddress().getHostName();
+        String message = Strings.connectedTo + connection.getInetAddress().getHostName();
         setStatusBar(message);
         int[] shot;
+        boolean hit;
         do {
             //Try to read another player's shot
             try {
                 shot = (int[]) input.readObject();
-                // CO DELAT S PRICHOZIMY DATY
+                
+                
             } catch (ClassNotFoundException e) {
                 setStatusBar(Strings.invalidData);
-                Util.writeToFile(this.getClass().getName()+": "+e);
+                Util.writeToFile(this.getClass().getName() + ": " + e);
             }
+            
+            
+                hit = input.readBoolean();
+                // CO DELAT S PRICHOZIMY DATY
+            
         } while (gameRunning);
     }
 
@@ -138,8 +145,8 @@ public class Server extends JFrame implements Runnable {
             input.close();
             connection.close();
         } catch (IOException e) {
-             setStatusBar(Strings.closingConnectionError);
-            Util.writeToFile(this.getClass().getName()+": "+e);
+            setStatusBar(Strings.closingConnectionError);
+            Util.writeToFile(this.getClass().getName() + ": " + e);
         }
 
     }
@@ -149,11 +156,24 @@ public class Server extends JFrame implements Runnable {
         statusBar.setText(message);
     }
 
-     //Sending data
-    public static void sendShot(/*object*/) throws IOException {
-        
+    //Sending data
+    public static void sendShot(int x, int y) throws IOException {
+        int[] shot = new int[2];
+        shot[0] = x;
+        shot[1] = y;
         try {
-           // output.writeObject(/*object*/);
+            output.writeObject(shot);
+        } catch (NullPointerException e) {
+            String message = Strings.cannotSendData;
+            JOptionPane.showMessageDialog(null, message);
+        }
+        output.flush();
+        // TURN OF SENDING SHOTS
+    }
+    
+    public static void sendHit(boolean hit) throws IOException {
+        try {
+            output.writeObject(hit);
         } catch (NullPointerException e) {
             String message = Strings.cannotSendData;
             JOptionPane.showMessageDialog(null, message);
@@ -162,8 +182,13 @@ public class Server extends JFrame implements Runnable {
         // TURN OF SENDING SHOTS
     }
 
+
     @Override
     public void run() {
         startRunning();
+    }
+
+    public static void getReady() {
+        GameLayout.setInfo("Wait for opponent to shot.");
     }
 }
