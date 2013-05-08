@@ -16,7 +16,7 @@ ve dvou po lokální síti.
 - Kadá dùleitá èást je umístìna ve svém vlastním balíèku.
 - Hlavní tøída SemestralniPrace pouze spustí menu v balíèku gui.
 
--Následuje monost pøipojení èi zaloení hry (Client a Server). Spojení se uskuteèní pomocí tøíd Client a Server v balíèku gui.
+- Následuje monost pøipojení èi zaloení hry (Client a Server). Spojení se uskuteèní pomocí tøíd Client a Server v balíèku gui.
 
 - Nejprve hráèi umístí své lodì a po kliknutí na ready se zapoène hra. Pøi umisování lodí ve høe se vyuívají vyuívat balíèky array a boat.
 - Hráè umisuje lodì kliknutím na ikonku lodì a kliknutím na místo v poly na které chce umístit loï (kadá má svùj "defaultní" ètvereèek podle kterého se vše odvíjí).
