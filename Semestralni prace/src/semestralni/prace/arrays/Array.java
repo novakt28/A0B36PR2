@@ -2,23 +2,24 @@ package semestralni.prace.arrays;
 
 import java.util.Arrays;
 import semestralni.prace.*;
+
 /**
  *
  * @author Tommzs
  */
-public class Array{
+public class Array { // Object holding Arrays for the game
+
     boolean[][] array;
 
     public Array() {
-        this.array = new boolean[Constants.X][Constants.Y];
+        this.array = new boolean[10][10];
     }
-    
-    
-    public boolean[][] getArray(){  
+
+    public boolean[][] getArray() {
         return this.array;
     }
-    
-    public void setArray(boolean[][] array){    
+
+    public void setArray(boolean[][] array) {
         this.array = array;
     }
 
@@ -43,5 +44,4 @@ public class Array{
         }
         return true;
     }
-    
 }

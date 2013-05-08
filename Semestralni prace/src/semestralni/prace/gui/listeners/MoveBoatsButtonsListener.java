@@ -17,9 +17,11 @@ import semestralni.prace.gui.GameLayout;
  * @author Tommzs
  */
 public class MoveBoatsButtonsListener implements ActionListener {
-
+    /**
+    * AL for the buttons used for selecting, moving, rotating boats
+    *
+    */
     JButton pressed;
-
     @Override
     public void actionPerformed(ActionEvent ae) {
         pressed = (JButton) ae.getSource();
@@ -46,9 +48,8 @@ public class MoveBoatsButtonsListener implements ActionListener {
         }
     }
 
-    private void moveButtons(){
+    private void moveButtons(){ // special method for moveButtons
         Array array = GameLayout.getBoatArray();
-
         try {
             switch (pressed.getName()) {
                 case "up":
@@ -70,8 +71,7 @@ public class MoveBoatsButtonsListener implements ActionListener {
                     try {
                         GameLayout.setGameOn();
                     } catch (IOException e) {
-                        // OSETRI
-                        System.out.println("ERROR, cannot setGameOn");
+                        GameLayout.setInfo(Strings.cannotSetGameOn);
                     }
                 } 
                     break;

@@ -15,7 +15,10 @@ import semestralni.prace.gui.listeners.*;
  * @author Tommzs
  */
 public final class GameLayout extends JPanel implements Serializable {
-
+    /**
+    * The main Game Layout - buttons, game fields, handles almost everything.
+    * Mostly static to easy access and modify from other classes.
+    */
     private static JButton[][] boatButtons;
     private static JButton[][] shotButtons;
     private static JButton boat1button;
@@ -53,22 +56,21 @@ public final class GameLayout extends JPanel implements Serializable {
     private static BoatLocalizator[][] localizatorArray;
     private static boolean server;
     private int buttonSize;
-    private int columns = Constants.X;
-    private int lines = Constants.Y;
+    private int columns = 10;
+    private int lines = 10;
     private static boolean yourTurn;
     private static int boatPartsAlive = 25;
 
     //Constructor
     public GameLayout(boolean server) throws IOException {
-        setLayout(null);
+        setLayout(null); /* Using null layout will allow me to set exact bounds
+         * - usefull for this application with fixed components */
         boatButtons = new ButtonXY[lines][columns];
         shotButtons = new ButtonXY[lines][columns];
         buttonSize = 25;
         GameLayout.setServer(server);
-        
         boatArray = new Array();
-        localizatorArray = new BoatLocalizator[Constants.X][Constants.Y];
-
+        localizatorArray = new BoatLocalizator[columns][lines];
         boat1label = new JLabel();
         boat1 = new Boat1("boat1", 0, 0, 2, boat1label);
         boat1label.setText("" + boat1.getNumberOfBoats());
@@ -91,11 +93,14 @@ public final class GameLayout extends JPanel implements Serializable {
         turnButtons(false);
 
     }
+    
+    //Sets up listeners
     private void setUpListeners() {
         boatArrayListener = new BoatArrayListener();
         moveBoatsButtonsListener = new MoveBoatsButtonsListener();
         shotArrayListener = new ShotArrayListener();
     }
+    
     //Fills panel with gui parts
     private void fillGameLayout() throws IOException {
         for (int i = 0; i < boatButtons.length; i++) {
@@ -222,17 +227,15 @@ public final class GameLayout extends JPanel implements Serializable {
         rotate.setEnabled(on);
         start.setEnabled(on);
     }
-    
-
-    
-
     //Checks if someone won
     public static boolean winCheck() {
-        if(boatPartsAlive == 0) return true;
+        if(boatPartsAlive == 0) {
+            return true;
+        }
         return false;
     }
 
-    // Tells you whose turn it is
+    // Returns if server or client
     public static boolean isServer() {
         return server;
     }
@@ -240,7 +243,8 @@ public final class GameLayout extends JPanel implements Serializable {
     public static void setServer(boolean server) {
         GameLayout.server = server;
     }
-
+    
+    // Sets text into info label
     public static void setInfo(String text) {
         info.setText(text);
     }
@@ -256,8 +260,6 @@ public final class GameLayout extends JPanel implements Serializable {
     public static Array getBoatArrayOpponent() {
         return boatArrayOpponent;
     }
-    
-    
 
     public static BoatParent getBoat() {
         return actualBoat;
@@ -311,6 +313,7 @@ public final class GameLayout extends JPanel implements Serializable {
         return boat4;
     }
 
+    // Repaint boat buttons after adding/moving/rotating boat
     public static void repaintGameArray() {
         boolean[][] array = boatArray.getArray();
         for (int i = 0; i < boatButtons.length; i++) {
@@ -324,6 +327,7 @@ public final class GameLayout extends JPanel implements Serializable {
         }
     }
 
+    // Updates localization array after every add/move/rotate
     public static void localizationArrayUpdate(BoatParent boat) {
         for (int i = 0; i < GameLayout.getLocalizatorArray().length; i++) {
             for (int j = 0; j < GameLayout.getLocalizatorArray().length; j++) {
@@ -334,6 +338,7 @@ public final class GameLayout extends JPanel implements Serializable {
         }
     }
 
+    //Sets game on, turns on buttons for shooting
     public static void setGameOn() throws IOException {
         turnPlaceButtons(false);
         if (isServer()) {
@@ -348,8 +353,9 @@ public final class GameLayout extends JPanel implements Serializable {
                 shotButtons[i][j].addActionListener(shotArrayListener);
             }
         }
-
     }
+    
+    // Turns placing buttons off/on
     public static void turnPlaceButtons(boolean on) {
         for (int i = 0; i < boatButtons.length; i++) {
             for (int j = 0; j < boatButtons[0].length; j++) {
@@ -368,6 +374,7 @@ public final class GameLayout extends JPanel implements Serializable {
         start.setEnabled(on);
     }
 
+    // Checks if the shot is hit or miss
     static void checkShot(int[] shot) throws IOException {
         boolean hit = boatArray.getArray()[shot[0]][shot[1]];
         if (hit) {
@@ -380,7 +387,7 @@ public final class GameLayout extends JPanel implements Serializable {
     }
     
   
-    
+    // Finishes game after someone won
     static void finishGame(boolean win) {
         String message;
         if(win) {

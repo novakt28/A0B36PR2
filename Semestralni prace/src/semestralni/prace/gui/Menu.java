@@ -11,7 +11,7 @@ import semestralni.prace.*;
 public class Menu extends javax.swing.JFrame{
 
     /**
-     * Creates new form Menu
+     * Creates new Menu
      */
     
     public Menu() {

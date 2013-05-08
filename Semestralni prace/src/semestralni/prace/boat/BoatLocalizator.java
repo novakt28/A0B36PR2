@@ -9,6 +9,9 @@ package semestralni.prace.boat;
  * @author Tommzs
  */
 public class BoatLocalizator {
+    /* Special class used for localizating boats in Array,
+    * holds information about the boat you click on - it's default square x and y possition
+    and type of boat itself*/
     int x;
     int y;
     BoatParent boat;
@@ -43,11 +46,4 @@ public class BoatLocalizator {
         this.boat = boat;
     }
 
-    @Override
-    public String toString() {
-        return "BoatLocalizator{" + "x=" + x + ", y=" + y + ", boat=" + boat.toString() + '}';
-    }
-    
-    
-    
 }

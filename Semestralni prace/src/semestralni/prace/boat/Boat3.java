@@ -19,13 +19,17 @@ public class Boat3 extends BoatParent {
     }
 
     @Override
-    public boolean putInArray(Array array) {
+    public boolean putInArray(Array array) { // Will put the the boat into array
         boolean[][] a = array.getArray();
 
         if (x != 0) {
-            if (a[x-1][y] == true) return false;
-            if (x!=1){
-            if (a[x-2][y] == true) return false;
+            if (a[x - 1][y] == true) {
+                return false;
+            }
+            if (x != 1) {
+                if (a[x - 2][y] == true) {
+                    return false;
+                }
             }
             if (y != 0) {
                 if (a[x - 1][y - 1] == true) {

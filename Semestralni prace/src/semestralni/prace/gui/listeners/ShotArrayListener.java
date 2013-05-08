@@ -7,8 +7,6 @@ package semestralni.prace.gui.listeners;
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import semestralni.prace.Strings;
 import semestralni.prace.gui.*;
 
@@ -17,8 +15,12 @@ import semestralni.prace.gui.*;
  * @author Tommzs
  */
 public class ShotArrayListener implements ActionListener {
-
+    /**
+    * AL for field used for sending shots
+    *
+    */
     @Override
+    // Handles your input and send it to sendShot method
     public void actionPerformed(ActionEvent ae) {
         if (!GameLayout.isYourTurn() || GameLayout.getBoatArrayOpponent() == null) {
             return;
@@ -45,14 +47,13 @@ public class ShotArrayListener implements ActionListener {
             try {
                 Server.sendShot(x, y);
             } catch (IOException ex) {
-                Logger.getLogger(ShotArrayListener.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("ERROR!!!");
+                GameLayout.setInfo(Strings.cannotSendData);
             }
         } else {
             try {
                 Client.sendShot(x, y);
             } catch (IOException ex) {
-                System.out.println("ERROR!!!");
+                GameLayout.setInfo(Strings.cannotSendData);
             }
         }
         

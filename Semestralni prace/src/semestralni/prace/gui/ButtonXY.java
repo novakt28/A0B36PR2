@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package semestralni.prace.gui;
 
 import javax.swing.JButton;
@@ -11,14 +8,15 @@ import javax.swing.JButton;
  * @author Tommzs
  */
 public class ButtonXY extends JButton{
+    /**
+     * "Smart" button with positions
+     */
     int x;
     int y;
-
     public ButtonXY(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    
     
     public int getX2(){
      return x;

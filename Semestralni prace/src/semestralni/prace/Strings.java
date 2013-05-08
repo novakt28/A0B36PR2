@@ -4,7 +4,7 @@ package semestralni.prace;
  *
  * @author Tommzs
  */
-public class Strings {
+public class Strings { //List of (almost) all Strings used in game
     //Other
     public static final String gametitle = "NETShips v1.0";
     
@@ -22,16 +22,16 @@ public class Strings {
     public static final String attemptingConnection = "Attempting connection...";
     public static final String waitingForConnection = "Waiting for connection...";
             
-    //Error messages
+    //Client/Server error messages
     public static final String errorIO = "Sending/Recieving data error";
     public static final String couldNotConnect = "Couldn't connect to the server. Try again.";
     public static final String closingConnectionError = "Closing connection error...";
     public static final String invalidData = "Invalid data";
     public static final String cannotSendData = "Cannot send data!";
-    public static final String cannotPutBoat = "You cannot put the boat here.";
+    public static final String cannotRecieveData = "Recieving data error.";
+    
     
     //Game related messages
-    public static final String shot = "Shot: ";
     public static final String win = "You WON!";
     public static final String lost = "You LOST!";
     public static final String gameOver = "Game Over";
@@ -52,6 +52,15 @@ public class Strings {
     public static final String youCanShoot = "Your opponent is ready, get ready and shoot first.";
     public static final String opponentIsNotReady = "Opponent is not ready, please wait.";
     public static final String opponentIsReady = "Your opponent is ready, get ready!";
+    
+    // Error info label messages
+    public static final String cannotGoUp = "Cannot go up.";
+    public static final String cannotGoDown = "Cannot go down.";
+    public static final String cannotGoLeft = "Cannot go left.";
+    public static final String cannotGoRight = "Cannot go right.";
+    public static final String cannotRotate = "Cannot rotate here.";
+    public static final String cannotSetGameOn = "Cannot set game on. Try again.";
+    public static final String cannotPutBoat = "You cannot put the boat here.";
     
     
              

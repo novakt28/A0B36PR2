@@ -11,20 +11,24 @@ import semestralni.prace.arrays.Array;
  *
  * @author Tommzs
  */
-public class Boat4 extends BoatParent{
-   public Boat4(String name, int x, int y, int size, JLabel label) {
-       super(name, x, y, size, label);
-       numberOfBoats = 1;
-        }
-   
-   
+public class Boat4 extends BoatParent {
+
+    public Boat4(String name, int x, int y, int size, JLabel label) {
+        super(name, x, y, size, label);
+        numberOfBoats = 1;
+    }
+
     @Override
-    public boolean putInArray(Array array) {
+    public boolean putInArray(Array array) { // Will put the the boat into array
         boolean[][] a = array.getArray();
         if (x != 0) {
-            if (a[x-1][y] == true) return false;
-            if (x!=1){
-            if (a[x-2][y] == true) return false;
+            if (a[x - 1][y] == true) {
+                return false;
+            }
+            if (x != 1) {
+                if (a[x - 2][y] == true) {
+                    return false;
+                }
             }
             if (y != 0) {
                 if (a[x - 1][y - 1] == true) {
@@ -76,21 +80,11 @@ public class Boat4 extends BoatParent{
             }
         }
         a[x][y] = true;
-        a[x+1][y] = true;
-        a[x-1][y] = true;
-        a[x+2][y] = true;
-        a[x+3][y] = true;
+        a[x + 1][y] = true;
+        a[x - 1][y] = true;
+        a[x + 2][y] = true;
+        a[x + 3][y] = true;
         return true;
-        
+
     }
-
-   
-
-  
-    public boolean checkSurrounding() {
-        // include in putInArray and every move!!!!
-        return true;
-    }
-
-    
 }

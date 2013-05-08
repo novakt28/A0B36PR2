@@ -10,9 +10,10 @@ import semestralni.prace.gui.Menu;
  *
  * @author Tommzs
  */
-public class SemestralniPrace {
+public class SemestralniPrace { // Main class, just starts Menu
+
     public static void main(String args[]) {
         Menu menu = new Menu();
         menu.setVisible(true);
-                }
+    }
 }

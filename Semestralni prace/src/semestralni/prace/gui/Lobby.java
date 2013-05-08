@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package semestralni.prace.gui;
 
 import java.io.IOException;
@@ -17,7 +14,7 @@ import java.util.logging.Logger;
 public class Lobby extends javax.swing.JFrame {
 
     /**
-     * Creates new form About
+     * Creates new form to insert IP address you want to connect to.
      */
     
     public Lobby() {
