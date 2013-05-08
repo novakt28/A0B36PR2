@@ -5,6 +5,7 @@
 package semestralni.prace.gui.listeners;
 
 import java.awt.event.*;
+import java.io.IOException;
 import javax.swing.*;
 import semestralni.prace.*;
 import semestralni.prace.arrays.Array;
@@ -22,6 +23,7 @@ public class MoveBoatsButtonsListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         pressed = (JButton) ae.getSource();
+        GameLayout.setInfo(Strings.boatPlacingInfo);
         switch (pressed.getName()) {
             case "boat1":
                 GameLayout.setBoat(GameLayout.getBoat1());
@@ -44,7 +46,7 @@ public class MoveBoatsButtonsListener implements ActionListener {
         }
     }
 
-    private void moveButtons() {
+    private void moveButtons(){
         Array array = GameLayout.getBoatArray();
 
         try {
@@ -65,7 +67,12 @@ public class MoveBoatsButtonsListener implements ActionListener {
                     GameLayout.getBoat().rotate(array);
                     break;
                 case "start": if (GameLayout.getBoat1().getNumberOfBoats() == 0 && GameLayout.getBoat2().getNumberOfBoats() == 0 && GameLayout.getBoat3().getNumberOfBoats() == 0 && GameLayout.getBoat4().getNumberOfBoats() == 0){
-                GameLayout.setGameOn();
+                    try {
+                        GameLayout.setGameOn();
+                    } catch (IOException e) {
+                        // OSETRI
+                        System.out.println("ERROR, cannot setGameOn");
+                    }
                 } 
                     break;
                 default:

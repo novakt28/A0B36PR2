@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.*;
 import javax.swing.*;
 import semestralni.prace.*;
+import semestralni.prace.arrays.Array;
 
 /**
  *
@@ -16,7 +17,7 @@ public class Server extends JFrame implements Runnable {
     private static GameLayout gameLayout;
     private JMenuBar menuBar;
     private JMenu game;
-    private JMenuItem newGame, exitGame;
+    private JMenuItem mainMenu, exitGame;
     private JLabel statusBar;
     private Socket connection;
     private static ObjectOutputStream output;
@@ -25,15 +26,18 @@ public class Server extends JFrame implements Runnable {
     private int lines = Constants.X;
     private int columns = Constants.Y;
     private boolean gameRunning;
+    private static boolean ready = false;
     //ActionListener for JMenuBar 
-    private ActionListener actionListener = new ActionListener() {
+   private ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if (evt.getSource().equals(newGame)) {/*clean game*/
-
+            if (evt.getSource().equals(mainMenu)) {
+               dispose();
+               Menu menu = new Menu();
+               menu.setVisible(true);
             }
             if (evt.getSource().equals(exitGame)) {/*exit game*/
-
+                System.exit(1);
             }
         }
     };
@@ -53,17 +57,17 @@ public class Server extends JFrame implements Runnable {
 
         menuBar = new JMenuBar();
         game = new JMenu(Strings.game);
-        newGame = new JMenuItem(Strings.newGame);
+        mainMenu = new JMenuItem(Strings.newGame);
         exitGame = new JMenuItem(Strings.exitGame);
         menuBar.add(game);
-        game.add(newGame);
+        game.add(mainMenu);
         game.add(exitGame);
 
         statusBar = new JLabel();
         statusBar.setPreferredSize(new Dimension(100, 16));
 
         gameLayout = new GameLayout(true);
-        newGame.addActionListener(actionListener);
+        mainMenu.addActionListener(actionListener);
         exitGame.addActionListener(actionListener);
 
         add(menuBar, BorderLayout.NORTH);
@@ -102,6 +106,7 @@ public class Server extends JFrame implements Runnable {
         connection = server.accept();
         setStatusBar(Strings.connected);
         gameLayout.turnButtons(true);
+        GameLayout.setInfo(Strings.startPlacingBoats);
     }
 
     //Setting up streams
@@ -116,41 +121,59 @@ public class Server extends JFrame implements Runnable {
     //Actions during game
     private void whilePlaying() throws IOException {
         String message = Strings.connectedTo + connection.getInetAddress().getHostName();
+        DataPack pack;
         setStatusBar(message);
         int[] shot;
-        boolean hit;
         do {
             //Try to read another player's shot
             try {
-                shot = (int[]) input.readObject();
-                
-                
-            } catch (ClassNotFoundException e) {
+                pack = (DataPack) input.readObject();
+                if (pack.dec) {
+                    shot = pack.shot;
+                    GameLayout.checkShot(shot);
+                }
+                if (!pack.dec) {
+                    Array get = new Array();
+                    get.setArray(pack.boatArray);
+                    GameLayout.setBoatArrayOpponent(get);
+                    if (!ready) {
+                        GameLayout.setInfo(Strings.opponentIsReady);
+                    } else {
+                        GameLayout.setInfo(Strings.waitForOpponent);
+                    }
+                }
+                if (pack.win) {
+                    GameLayout.finishGame(false);
+                }
+            } catch (ClassNotFoundException | ClassCastException e) {
                 setStatusBar(Strings.invalidData);
                 Util.writeToFile(this.getClass().getName() + ": " + e);
             }
-            
-            
-                hit = input.readBoolean();
-                // CO DELAT S PRICHOZIMY DATY
-            
+
         } while (gameRunning);
     }
 
-    //Closing connection
+    // Close connetion
     private void close() {
         setStatusBar(Strings.closingConnection);
         try {
-            output.close(); // NullPointerException errors
+            output.close();
             input.close();
             connection.close();
         } catch (IOException e) {
             setStatusBar(Strings.closingConnectionError);
+            GameLayout.setInfo(Strings.closingConnectionError);
+            GameLayout.turnButtons(false);
+            Util.writeToFile(this.getClass().getName() + ": " + e);
+        
+        } catch (NullPointerException e) {
+            setStatusBar(Strings.couldNotConnect);
+            GameLayout.setInfo(Strings.couldNotConnect);
+            GameLayout.turnButtons(false);
             Util.writeToFile(this.getClass().getName() + ": " + e);
         }
 
     }
-
     // Status bar text setting method
     public void setStatusBar(String message) {
         statusBar.setText(message);
@@ -161,27 +184,38 @@ public class Server extends JFrame implements Runnable {
         int[] shot = new int[2];
         shot[0] = x;
         shot[1] = y;
+        GameLayout.actualShot = shot;
+        DataPack shotObj = new DataPack(shot);
+        if (GameLayout.getBoatPartsAlive() == 0) {
+            shotObj.win = true;
+        }
         try {
-            output.writeObject(shot);
+            output.writeObject(shotObj);
+            output.flush();
         } catch (NullPointerException e) {
             String message = Strings.cannotSendData;
             JOptionPane.showMessageDialog(null, message);
         }
-        output.flush();
-        // TURN OF SENDING SHOTS
-    }
-    
-    public static void sendHit(boolean hit) throws IOException {
-        try {
-            output.writeObject(hit);
-        } catch (NullPointerException e) {
-            String message = Strings.cannotSendData;
-            JOptionPane.showMessageDialog(null, message);
+        int test = GameLayout.getBoatPartsAlive();
+        if (test == 0) {
+            GameLayout.finishGame(true);
         }
-        output.flush();
+
         // TURN OF SENDING SHOTS
     }
 
+    public static void sendInitArray() throws IOException {
+
+        DataPack initArray = new DataPack(GameLayout.getBoatArray().getArray());
+        try {
+            output.writeObject(initArray);
+            output.flush();
+            
+        } catch (NullPointerException e) {
+            String message = Strings.cannotSendData;
+            JOptionPane.showMessageDialog(null, message);
+        }
+    }
 
     @Override
     public void run() {
@@ -189,6 +223,18 @@ public class Server extends JFrame implements Runnable {
     }
 
     public static void getReady() {
-        GameLayout.setInfo("Wait for opponent to shot.");
+        Array test = GameLayout.getBoatArrayOpponent();
+        if (test == null) {
+            GameLayout.setInfo(Strings.opponentIsNotReady);
+        } else {
+            GameLayout.setInfo(Strings.waitForOpponent);
+        }
+        setReady(true);
+        
     }
+
+    public static void setReady(boolean ready) {
+        Server.ready = ready;
+    }
+    
 }

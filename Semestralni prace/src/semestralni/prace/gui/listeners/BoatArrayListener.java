@@ -5,7 +5,6 @@
 package semestralni.prace.gui.listeners;
 
 import java.awt.event.*;
-import javax.swing.*;
 import semestralni.prace.*;
 import semestralni.prace.arrays.Array;
 import semestralni.prace.boat.*;
@@ -47,7 +46,7 @@ public class BoatArrayListener implements ActionListener{
         
         
         } else {
-                JOptionPane.showMessageDialog(null, Strings.noMoreBoats);
+                GameLayout.setInfo(Strings.noMoreBoats);
             }
     } else {
             BoatLocalizator[][] localizatorArray = GameLayout.getLocalizatorArray();

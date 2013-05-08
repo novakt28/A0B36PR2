@@ -4,10 +4,12 @@
  */
 package semestralni.prace.gui.listeners;
 
+import java.awt.Color;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import semestralni.prace.Strings;
 import semestralni.prace.gui.*;
 
 /**
@@ -18,9 +20,27 @@ public class ShotArrayListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        if (!GameLayout.isYourTurn() || GameLayout.getBoatArrayOpponent() == null) {
+            return;
+        }
+        GameLayout.setYourTurn(false);
+        GameLayout.setInfo(Strings.waitForOpponent);
+        
         ButtonXY button = (ButtonXY) ae.getSource();
         int x = button.getX2();
         int y = button.getY2();
+        boolean[][] ref = GameLayout.getBoatArrayOpponent().getArray();
+        
+        button.removeActionListener(this);
+        if (ref[x][y] == true) {
+            button.setBackground(Color.RED);
+            int test = GameLayout.getBoatPartsAlive()-1;
+            GameLayout.setBoatPartsAlive(test);
+            
+        } else {
+            button.setBackground(Color.GRAY);
+        }
+        
         if (GameLayout.isServer()) {
             try {
                 Server.sendShot(x, y);
@@ -35,5 +55,7 @@ public class ShotArrayListener implements ActionListener {
                 System.out.println("ERROR!!!");
             }
         }
+        
+        
     }
 }
