@@ -118,10 +118,10 @@ public final class GameLayout extends JPanel implements Serializable {
                 add(shotButtons[i][j]);
             }
         }
-        boat1icon = ImageIO.read(new File("src\\semestralni\\prace\\res\\boat2.png"));
-        boat2icon = ImageIO.read(new File("src\\semestralni\\prace\\res\\boat4_2.png"));
-        boat3icon = ImageIO.read(new File("src\\semestralni\\prace\\res\\boat4.png"));
-        boat4icon = ImageIO.read(new File("src\\semestralni\\prace\\res\\boat6.png"));
+        boat1icon = ImageIO.read(getClass().getResource("/resources/boat2.png"));
+        boat2icon = ImageIO.read(getClass().getResource("/resources/boat3.png"));
+        boat3icon = ImageIO.read(getClass().getResource("/resources/boat4.png"));
+        boat4icon = ImageIO.read(getClass().getResource("/resources/boat5.png"));
 
         boat1button = new JButton(new ImageIcon(boat1icon));
         boat2button = new JButton(new ImageIcon(boat2icon));
@@ -230,6 +230,7 @@ public final class GameLayout extends JPanel implements Serializable {
     //Checks if someone won
     public static boolean winCheck() {
         if(boatPartsAlive == 0) {
+            GameLayout.setBoatPartsAlive(25);
             return true;
         }
         return false;
@@ -397,7 +398,7 @@ public final class GameLayout extends JPanel implements Serializable {
         }
         GameLayout.setInfo(message);
         GameLayout.turnButtons(false);
-    }
+        }
 
     public static int getBoatPartsAlive() {
         return boatPartsAlive;

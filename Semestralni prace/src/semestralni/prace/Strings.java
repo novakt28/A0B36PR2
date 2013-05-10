@@ -6,7 +6,7 @@ package semestralni.prace;
  */
 public class Strings { //List of (almost) all Strings used in game
     //Other
-    public static final String gametitle = "NETShips v1.0";
+    public static final String gametitle = "NETBoats v1.0";
     
     //GUI Strings
     public static final String game = "Game";
@@ -23,7 +23,7 @@ public class Strings { //List of (almost) all Strings used in game
     public static final String waitingForConnection = "Waiting for connection...";
             
     //Client/Server error messages
-    public static final String errorIO = "Sending/Recieving data error";
+    public static final String errorIO = "Connection interrupted...";
     public static final String couldNotConnect = "Couldn't connect to the server. Try again.";
     public static final String closingConnectionError = "Closing connection error...";
     public static final String invalidData = "Invalid data";
@@ -44,6 +44,7 @@ public class Strings { //List of (almost) all Strings used in game
     
     // Info label messages   
     public static final String startPlacingBoats = "Start with placing your boats. Click on one on the left.";
+    public static final String selectBoat = "First select one of the boats on the left.";
     public static final String boatPlacingInfo = "Put all boats into the field and get READY.";
     public static final String noMoreBoats = "You cannot add more boats of this type.";
     public static final String unknownButtonPressed = "Unknow button pressed. Try again.";
@@ -52,6 +53,7 @@ public class Strings { //List of (almost) all Strings used in game
     public static final String youCanShoot = "Your opponent is ready, get ready and shoot first.";
     public static final String opponentIsNotReady = "Opponent is not ready, please wait.";
     public static final String opponentIsReady = "Your opponent is ready, get ready!";
+    public static final String bothReady = "Your opponent is ready, you can shoot.";
     
     // Error info label messages
     public static final String cannotGoUp = "Cannot go up.";
@@ -61,6 +63,7 @@ public class Strings { //List of (almost) all Strings used in game
     public static final String cannotRotate = "Cannot rotate here.";
     public static final String cannotSetGameOn = "Cannot set game on. Try again.";
     public static final String cannotPutBoat = "You cannot put the boat here.";
+    
     
     
              

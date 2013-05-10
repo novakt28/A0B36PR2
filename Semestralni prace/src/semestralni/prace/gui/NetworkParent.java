@@ -28,20 +28,20 @@ public abstract class NetworkParent extends JFrame {
     */
     private JMenuBar menuBar;
     private JMenu game;
-    private JMenuItem mainMenu, exitGame;
-    private JLabel statusBar;
+    private JMenuItem exitGame;
+    private static JLabel statusBar;
     protected Socket connection;
     private static ObjectOutputStream output;
     private ObjectInputStream input;
     private int lines = 10;
     private int columns = 10;
-    private boolean gameRunning;
+    private static boolean gameRunning;
     protected static boolean ready = false;
 
     public NetworkParent() throws IOException {
         //Layout setting
         super(Strings.gametitle);
-        this.gameRunning = true;
+        NetworkParent.gameRunning = true;
         setTitle(Strings.gametitle);
         setSize(2 * columns * 25 + 200, lines * 25 + 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -50,16 +50,16 @@ public abstract class NetworkParent extends JFrame {
 
         menuBar = new JMenuBar();
         game = new JMenu(Strings.game);
-        mainMenu = new JMenuItem(Strings.newGame);
+        
         exitGame = new JMenuItem(Strings.exitGame);
         menuBar.add(game);
-        game.add(mainMenu);
+        
         game.add(exitGame);
 
         statusBar = new JLabel();
         statusBar.setPreferredSize(new Dimension(100, 16));
 
-        mainMenu.addActionListener(actionListener);
+        
         exitGame.addActionListener(actionListener);
 
         add(menuBar, BorderLayout.NORTH);
@@ -69,11 +69,6 @@ public abstract class NetworkParent extends JFrame {
     protected ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if (evt.getSource().equals(mainMenu)) {
-                dispose();
-                Menu menu = new Menu();
-                menu.setVisible(true);
-            }
             if (evt.getSource().equals(exitGame)) {/*exit game*/
                 System.exit(1);
             }
@@ -112,7 +107,11 @@ public abstract class NetworkParent extends JFrame {
                             GameLayout.setInfo(Strings.waitForOpponent);
                         }
                     } else {
-                        GameLayout.setInfo(Strings.youCanShoot);
+                         if (!ready) {
+                            GameLayout.setInfo(Strings.bothReady);
+                        } else {
+                            GameLayout.setInfo(Strings.youCanShoot);
+                        }
                     }
                 }
                 if (pack.win) {
@@ -144,7 +143,7 @@ public abstract class NetworkParent extends JFrame {
     }
 
     // Status bar text setting method
-    public void setStatusBar(String message) {
+    public static void setStatusBar(String message) {
         statusBar.setText(message);
     }
 
@@ -157,6 +156,7 @@ public abstract class NetworkParent extends JFrame {
         DataPack shotObj = new DataPack(shot);
         if (GameLayout.winCheck()) {
             shotObj.win = true;
+            GameLayout.finishGame(true);
         }
         try {
             output.writeObject(shotObj);
@@ -164,9 +164,6 @@ public abstract class NetworkParent extends JFrame {
         } catch (NullPointerException e) {
             String message = Strings.cannotSendData;
             JOptionPane.showMessageDialog(null, message);
-        }
-        if (GameLayout.winCheck()) {
-            GameLayout.finishGame(true);
         }
     }
 
@@ -181,4 +178,14 @@ public abstract class NetworkParent extends JFrame {
             JOptionPane.showMessageDialog(null, message);
         }
     }
+
+    public static boolean isGameRunning() {
+        return gameRunning;
+    }
+
+    public static void setGameRunning(boolean gameRunning) {
+        NetworkParent.gameRunning = gameRunning;
+    }
+    
+    
 }

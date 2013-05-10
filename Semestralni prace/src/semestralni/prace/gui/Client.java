@@ -34,7 +34,8 @@ public class Client extends NetworkParent implements Runnable {
             whilePlaying();
         } catch (EOFException e) {
             setStatusBar(Strings.clientTerminated);
-            GameLayout.setInfo(Strings.errorIO);
+           GameLayout.setInfo(Strings.errorIO);
+            
         } catch (IOException e) {
             setStatusBar(Strings.invalidData);
             GameLayout.setInfo(Strings.errorIO);
