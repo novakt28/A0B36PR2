@@ -57,7 +57,6 @@ public class BoatArrayListener implements ActionListener {
             GameLayout.setBoat(localizatorArray[x][y].getBoat());
             GameLayout.setActualX(x + localizatorArray[x][y].getX());
             GameLayout.setActualY(y + localizatorArray[x][y].getY());
-            System.out.println(localizatorArray[x][y].toString());
         }
 
 
