@@ -13,7 +13,7 @@ import semestralni.prace.gui.*;
 public class BoatArrayListener implements ActionListener {
 
     /**
-     * AL for field used for placing boats.
+     * AL for field used for placing boats
      *
      */
     @Override
@@ -35,7 +35,7 @@ public class BoatArrayListener implements ActionListener {
 
                     // Tries to put the boat into field
 
-                    boat.putInArray(new Array()); // Just checking would not be OOB, if so the rest is skipped
+                    boat.putInArray(new Array()); // Just checking if it would not be OOB, if so the rest is skipped (the exception is thrown and cached
                     boolean a = boat.putInArray(GameLayout.getBoatArray());
                     if (a == true) {
                         boat.setNumberOfBoats(boat.getNumberOfBoats() - 1);

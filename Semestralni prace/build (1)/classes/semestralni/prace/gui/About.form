@@ -78,7 +78,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NETBoats semestral work at Czech Technical University"/>
+        <Property name="text" type="java.lang.String" value="NETShips semestral work at Czech Technical University"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">

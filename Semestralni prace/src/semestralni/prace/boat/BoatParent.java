@@ -10,7 +10,8 @@ import semestralni.prace.gui.GameLayout;
  *
  * @author Tommzs
  */
-public abstract class BoatParent { // Parent of all boats, has methods for moving, rotating etc.
+public abstract class BoatParent {
+    /* Parent of all boats, has methods for moving, rotating etc.*/
 
     String name;
     int x;

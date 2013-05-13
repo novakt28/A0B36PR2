@@ -8,7 +8,7 @@ package semestralni.prace.gui;
 public class About extends javax.swing.JFrame {
 
     /**
-     * Creates new form About
+     * Creates new form About containing just some informations about author etc.
      */
     public About() {
         initComponents();
@@ -42,7 +42,7 @@ public class About extends javax.swing.JFrame {
 
         jLabel1.setText("Tomáš Novák 2013");
 
-        jLabel2.setText("NETShips semestral work at Czech Technical University");
+        jLabel2.setText("NETBoats semestral work at Czech Technical University");
 
         jLabel3.setText("Programming 2, Cybernetics and Robotics");
 
